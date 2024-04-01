@@ -1,16 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using ProElectionV2.Persistence;
 
 namespace ProElection.Tests.Unit.Repositories;
 
 public abstract class DbFaker
 {
-    protected Database Database { get; private set; }
+    protected ProElectionV2DbContext InMemoryDb { get; private set; }
 
     protected DbFaker()
     {
-        var builder = new DbContextOptionsBuilder<Database>();
+        DbContextOptionsBuilder<ProElectionV2DbContext> builder = 
+            new DbContextOptionsBuilder<ProElectionV2DbContext>();
+
+        builder.EnableDetailedErrors();
+        builder.EnableSensitiveDataLogging();
         
-        Database = database;
+        builder.UseInMemoryDatabase(Guid.NewGuid().ToString());
+        
+        InMemoryDb = new ProElectionV2DbContext(builder.Options);
     }
 }
