@@ -15,24 +15,24 @@ public class ElectionRepository : IElectionRepository, IAsyncDisposable
     }
     
     /// <inheritdoc/>
-    public virtual async Task<IEnumerable<Election>> GetElections()
+    public async Task<IEnumerable<Election>> GetElections()
     {
         return await _dbContext.Elections.ToListAsync();
     }
 
-    public virtual async Task<IEnumerable<Election>> GetMultipleElectionsByIds(IEnumerable<Guid> ids)
+    public async Task<IEnumerable<Election>> GetMultipleElectionsByIds(IEnumerable<Guid> ids)
     {
         return await _dbContext.Elections.Where(election => ids.Contains(election.Id)).ToListAsync();
     }
     
     /// <inheritdoc/>
-    public virtual async Task<Election?> GetElectionById(Guid id)
+    public async Task<Election?> GetElectionById(Guid id)
     {
         return await _dbContext.Elections.SingleOrDefaultAsync(election => election.Id == id);
     }
     
     /// <inheritdoc/>
-    public virtual async Task<Election> CreateElection(Election election)
+    public async Task<Election> CreateElection(Election election)
     {
         await _dbContext.Elections.AddAsync(election);
         await _dbContext.SaveChangesAsync();
@@ -40,7 +40,7 @@ public class ElectionRepository : IElectionRepository, IAsyncDisposable
     }
     
     /// <inheritdoc/>
-    public virtual async Task UpdateElection(Election election)
+    public async Task UpdateElection(Election election)
     {
         _dbContext.Elections.Update(election);
         await _dbContext.SaveChangesAsync();

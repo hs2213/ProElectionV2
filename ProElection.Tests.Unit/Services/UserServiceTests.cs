@@ -9,7 +9,7 @@ public class UserServiceTests : DbFaker
 
     public UserServiceTests()
     {
-        _substituteUserRepository = Substitute.For<UserRepository>(InMemoryDb);
+        _substituteUserRepository = Substitute.For<IUserRepository>();
         _substituteElectionService = Substitute.For<IElectionService>();
         _substituteNotifyService = Substitute.For<INotifyService>();
 

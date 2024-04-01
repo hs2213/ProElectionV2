@@ -16,7 +16,7 @@ public class ElectionCodeRepository : IElectionCodeRepository, IAsyncDisposable
     }
     
     /// <inheritdoc/>
-    public virtual async Task<ElectionCode> Create(ElectionCode electionCode)
+    public async Task<ElectionCode> Create(ElectionCode electionCode)
     {
         await _dbContext.ElectionCodes.AddAsync(electionCode);
         await _dbContext.SaveChangesAsync();
@@ -24,19 +24,19 @@ public class ElectionCodeRepository : IElectionCodeRepository, IAsyncDisposable
     }
     
     /// <inheritdoc/>
-    public virtual async Task<ElectionCode?> GetById(Guid id)
+    public async Task<ElectionCode?> GetById(Guid id)
     {
         return await _dbContext.ElectionCodes.SingleOrDefaultAsync(storedCode => storedCode.Id == id);
     }
     
-    public virtual async Task<ElectionCode?> GetByElectionAndUser(Guid electionId, Guid userId)
+    public async Task<ElectionCode?> GetByElectionAndUser(Guid electionId, Guid userId)
     {
         return await _dbContext.ElectionCodes
             .SingleOrDefaultAsync(code => code.ElectionId == electionId && code.UserId == userId);
     }
     
     /// <inheritdoc/>
-    public virtual async Task Update(ElectionCode electionCode)
+    public async Task Update(ElectionCode electionCode)
     {
         _dbContext.ElectionCodes.Update(electionCode);
         await _dbContext.SaveChangesAsync();
