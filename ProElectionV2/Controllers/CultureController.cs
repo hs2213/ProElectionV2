@@ -25,8 +25,6 @@ public class CultureController : Controller
 
         HttpContext.Response.Cookies.Append(cookieName, cookieValue);
 
-        Console.WriteLine(CultureInfo.CurrentCulture);
-
         Thread.CurrentThread.CurrentUICulture = CultureInfo.CurrentCulture;
 
         return Redirect(returnUrl);
