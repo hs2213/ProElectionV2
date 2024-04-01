@@ -1,4 +1,5 @@
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using ProElectionV2.Entities;
 using ProElectionV2.Entities.Validations;
 using ProElectionV2.Persistence;
@@ -16,7 +17,8 @@ builder.Services.AddControllers();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-builder.Services.AddDbContext<ProElectionV2DbContext>();
+builder.Services.AddDbContext<ProElectionV2DbContext>(options => 
+    options.UseSqlite("DataSource=ProElectionV2.db"));
 
 builder.Services
     .AddScoped<IElectionCodeRepository, ElectionCodeRepository>()
