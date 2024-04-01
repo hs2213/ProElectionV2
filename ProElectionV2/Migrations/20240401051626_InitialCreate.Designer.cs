@@ -11,7 +11,7 @@ using ProElectionV2.Persistence;
 namespace ProElectionV2.Migrations
 {
     [DbContext(typeof(ProElectionV2DbContext))]
-    [Migration("20240316195537_InitialCreate")]
+    [Migration("20240401051626_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -26,9 +26,8 @@ namespace ProElectionV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Candidates")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("ElectionType")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("End")
                         .HasColumnType("TEXT");
@@ -91,6 +90,14 @@ namespace ProElectionV2.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ParticipatingElections")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -120,6 +127,9 @@ namespace ProElectionV2.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTimeOffset>("Time")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("UserId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

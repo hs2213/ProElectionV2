@@ -16,9 +16,9 @@ namespace ProElectionV2.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    UserId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Status = table.Column<int>(type: "INTEGER", nullable: false),
                     ElectionId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Status = table.Column<int>(type: "INTEGER", nullable: false)
+                    UserId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,7 +33,7 @@ namespace ProElectionV2.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Start = table.Column<DateTime>(type: "TEXT", nullable: false),
                     End = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Candidates = table.Column<string>(type: "TEXT", nullable: false)
+                    ElectionType = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,7 +52,9 @@ namespace ProElectionV2.Migrations
                     Postcode = table.Column<string>(type: "TEXT", nullable: false),
                     Country = table.Column<string>(type: "TEXT", nullable: false),
                     HashedPassword = table.Column<string>(type: "TEXT", nullable: false),
-                    UserType = table.Column<int>(type: "INTEGER", nullable: false)
+                    PasswordSalt = table.Column<string>(type: "TEXT", nullable: false),
+                    UserType = table.Column<int>(type: "INTEGER", nullable: false),
+                    ParticipatingElections = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,9 +66,10 @@ namespace ProElectionV2.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ElectionId = table.Column<Guid>(type: "TEXT", nullable: false),
                     CandidateId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Time = table.Column<DateTimeOffset>(type: "TEXT", nullable: false)
+                    Time = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    ElectionId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    UserId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
