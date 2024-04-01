@@ -1,0 +1,9 @@
+﻿@typeparam TEntity
+
+<div>
+    @ChildContent
+    @if (string.IsNullOrWhiteSpace(_error) == false)
+    {
+        <p class="error-message">@_loc[_error]</p>  
+    }
+</div>

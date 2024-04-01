@@ -1,0 +1,19 @@
+﻿@using ProElectionV2.Entities
+@inherits ProElectionV2.Shared.ComponentBases.LoggedInBase
+@page "/elections"
+<h1>Elections</h1>
+
+@if (ViewingUser == null)
+{
+    <p>@_loc["User Not Found..."]</p>
+}
+else
+{
+    <div class="election-list">
+        @foreach (Election election in _elections)
+        {
+            <SingleElection
+                Election="election"
+                ViewingUser="ViewingUser"/>        }
+    </div>
+}

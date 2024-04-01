@@ -1,0 +1,50 @@
+﻿.page-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.half {
+    height: 100%;
+    width: 50%;
+    position: relative;
+}
+
+.blue-half {
+    background-color: #89cff0;
+    margin-top: -1rem;
+    height: 107%;
+}
+
+.black-half {
+    width: 50%;
+}
+
+.app-title {
+    color: #89cff0;
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+.blue-half > h1, .blue-half h2, .blue-half label {
+    color: #121212;
+}
+
+label {
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+.blue-half > .middle-form {
+    border: 3px solid #121212;
+}
+
+.black-submit {
+    border-color: #121212; 
+    color: #121212;
+}
+
+.black-submit:hover {
+    background-color: #121212;
+    color: #89cff0;
+}

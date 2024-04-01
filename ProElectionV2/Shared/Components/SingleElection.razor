@@ -1,0 +1,34 @@
+﻿<div
+    class="single-election"
+    style="@((ViewingUser.UserType == UserType.Voter && Election.End > DateTime.Now) ? "" : "flex-basis: 100%;")">
+    <div
+        @ondblclick="@NavigateToVotePage"
+        class="election-container
+               @(Election.End < DateTime.Now ? "completed-election" : "")">
+
+        <div class="sub-container">
+            <h3>@Election.Name</h3>
+            @if (Election.End < DateTime.Now)
+            {
+                <input type="button" value="@_loc["See Results"]" @onclick="NavigateToVotePage"/>
+            }
+        </div>
+
+        @if (ViewingUser.UserType == UserType.Admin)
+        {
+            <div class="sub-container right">
+                <input type="button" value="@_loc["Add Candidate"]" @onclick="() => AddUserToElection(UserType.Candidate)"/>
+                <input type="button" value="@_loc["Add User"]" @onclick="() => AddUserToElection(UserType.Voter)"/>
+            </div>
+        }
+    </div>
+
+    @if (ViewingUser.UserType == UserType.Voter && Election.End > DateTime.Now)
+    {
+        <div class="code-container base-form">
+            <p>@_loc["Get an Election code:"]</p>
+            <input type="text" @bind="_electionCode"/>
+            <input type="button" value="@_loc["Get Code"]" @onclick="GetElectionCode"/>
+        </div>
+    }
+</div>

@@ -1,0 +1,9 @@
+﻿select {
+    position: absolute;
+    right: .5rem;
+    top: 0;
+    z-index: 2;
+    border: #89cff0 2px solid;
+    background-color: #121212;
+    color: #89cff0;
+}

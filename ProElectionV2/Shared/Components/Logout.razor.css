@@ -1,0 +1,16 @@
+﻿.logout {
+    border: 3px solid #89cff0;
+    padding: .5rem 1rem;
+    position: absolute;
+    right: 1rem;
+    top: 1.5rem;
+    cursor: pointer;
+}
+
+.logout:hover {
+    background-color: #89cff0;
+}
+
+.logout:hover h3 {
+    color: #121212;
+}

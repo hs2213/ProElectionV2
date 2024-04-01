@@ -1,0 +1,17 @@
+﻿.error-message {
+    font-weight: bold;
+    color: red;
+    font-size: .7rem;
+    padding-top: .2rem;
+}
+
+input {
+    background-color: transparent;
+    border: 1px solid #89cff0;
+    padding-left: .2rem;
+    margin-left: .2rem;
+}
+
+div {
+    margin-top: 1rem;
+}

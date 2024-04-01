@@ -1,0 +1,78 @@
+﻿@using ProElectionV2.Entities
+<form class="@Class" @onsubmit="CreateUser">
+    <h2 class="blue-text">@Label</h2>
+    
+    <ValidatedInput
+        TEntity="User"
+        Entity="_user"
+        PropertyName="@nameof(User.Name)"
+        ValidationContext="_userContext">
+        <label>
+            @_loc["Name:"] <input type="text" @bind="_user.Name"/>
+        </label>
+    </ValidatedInput>
+    
+    <ValidatedInput
+        TEntity="User"
+        Entity="_user"
+        PropertyName="@nameof(User.PhoneNumber)"
+        ValidationContext="_userContext">
+        <label>
+            @_loc["Number:"] <input type="text" @bind="_user.PhoneNumber"/>
+        </label>
+    </ValidatedInput>
+    
+    <ValidatedInput
+        TEntity="User"
+        Entity="_user"
+        PropertyName="@nameof(User.Email)"
+        ValidationContext="_userContext">
+        <label>
+            @_loc["Email:"] <input type="email" @bind="_user.Email"/>
+        </label>
+    </ValidatedInput>
+    
+    <ValidatedInput
+        TEntity="User"
+        Entity="_user"
+        PropertyName="@nameof(User.Address)"
+        ValidationContext="_userContext">
+        <label>
+            @_loc["Address:"] <input type="text" @bind="_user.Address"/>
+        </label>
+    </ValidatedInput>
+    
+    <ValidatedInput
+        TEntity="User"
+        Entity="_user"
+        PropertyName="@nameof(User.Postcode)"
+        ValidationContext="_userContext">
+        <label>
+            @_loc["Postcode:"] <input type="text" @bind="_user.Postcode"/>
+        </label>
+    </ValidatedInput>
+    
+    <ValidatedInput
+        TEntity="User"
+        Entity="_user"
+        PropertyName="@nameof(User.Country)"
+        ValidationContext="_userContext">
+        <label>
+            @_loc["Country:"] <input type="text" @bind="_user.Country"/>
+        </label>
+    </ValidatedInput>
+    
+    <ValidatedInput
+        TEntity="User"
+        Entity="_user"
+        PropertyName="@nameof(User.HashedPassword)"
+        ValidationContext="_userContext">
+        <label>
+            @_loc["Password:"] <input type="password" @bind="_user.HashedPassword"/>
+        </label>
+    </ValidatedInput>
+    
+    <label class="blue-text">
+        <input type="submit" value="@(_loc[Label])"/>
+    </label>
+</form>

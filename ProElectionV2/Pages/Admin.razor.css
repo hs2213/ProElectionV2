@@ -1,0 +1,40 @@
+﻿.page-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+div {
+    margin: 0;
+}
+
+.elections-container {
+    flex-basis: 50%;
+}
+
+.forms-container {
+    flex-basis: 50%;
+    padding-top: 1rem;
+}
+
+.user-select {
+    cursor: pointer;
+    transition: .3s;
+    padding: 0 .5rem;
+}
+
+.user-select:hover {
+    background-color: #89cff0;
+    color: #121212;
+}
+
+.selected {
+    background-color: #89cff0;
+    color: #121212;
+}
+
+.user-divider {
+    color: #89cff0;
+    opacity: 1;
+    border-style: solid;
+}

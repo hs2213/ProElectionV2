@@ -1,0 +1,19 @@
+﻿@using ProElectionV2.Entities
+@inherits ProElectionV2.Shared.ComponentBases.LoggedInBase
+@page "/vote"
+
+<h1>Vote</h1>
+
+<div class="candidate-list">
+    @foreach (User candidate in _candidates)
+    {
+        <div class="base-form" @onclick="() => PlaceVote(candidate)">
+            <h2>@candidate.Name</h2>
+        
+            @if (_election?.End < DateTime.Now)
+            {
+                <p>@_candidatesResults?[candidate]</p>
+            }
+        </div>
+    }
+</div>

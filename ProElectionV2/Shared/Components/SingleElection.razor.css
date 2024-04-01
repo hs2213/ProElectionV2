@@ -1,0 +1,59 @@
+﻿.single-election {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+}
+
+.election-container {
+    display: flex;
+    padding: 1rem;
+    border: 2px solid #89cff0;
+    border-radius: 5px;
+    margin-top: 1rem;
+    flex-basis: 60%;
+}
+
+.completed-election {
+    background-color: dimgrey;
+    color: #f0f0f0;
+    border-color: #f0f0f0;
+}
+
+.completed-election:hover {
+    background-color: dimgrey;
+}
+
+.code-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex-basis: 40%;
+    margin-top: 1rem;
+}
+
+.code-container > input[type="text"] {
+    width: 50%;
+    transition: .3s;
+}
+
+.election-container:hover {
+    background-color: #89cff0;
+}
+
+.election-container:hover h3, .election-container:hover input {
+    color: #121212;
+}
+
+.election-container:hover input {
+    border-color: #121212;
+}
+
+.sub-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.right {
+    margin-left: auto;
+}

@@ -1,0 +1,8 @@
+﻿@inherits ProElectionV2.Shared.ComponentBases.LoggedInBase
+
+@if (UserId != null)
+{
+    <div class="logout" @onclick="LogOut">
+        <h3>@_loc["Logout"]</h3>
+    </div>
+}

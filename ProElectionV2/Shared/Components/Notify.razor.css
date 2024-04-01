@@ -1,0 +1,11 @@
+.notification {
+    position: absolute;
+    bottom: 2rem;
+    padding: 1rem;
+    font-size: 1.2rem;
+    background-color: #89cff0;
+}
+
+.notification > p {
+    color: #121212;
+}

@@ -1,0 +1,112 @@
+﻿@using ProElectionV2.Entities
+@inherits ProElectionV2.Shared.ComponentBases.LoggedInBase
+@page "/admin"
+
+<h1 class="app-title">@_loc["Admin"]</h1>
+
+<div>
+    <input 
+        type="button" 
+        value="@_loc["Add Election"]" 
+        @onclick="() => _electionModificationType = ElectionModificationType.AddElection"/>
+    <input 
+        type="button" 
+        value="@_loc["Add Candidate"]"
+        @onclick="() => _electionModificationType = ElectionModificationType.AddUser"/>
+</div>
+
+<div class="page-container">
+    <div class="elections-container">
+        @if (_renderSingleElection)
+        {
+            @foreach (Election election in _elections)
+            {
+                <SingleElection
+                    Election="@election"
+                    ViewingUser="ViewingUser"
+                    OnAddUserToElection="OnAddUserToElectionClicked"/>
+            }
+        }
+    </div>
+    <div class="forms-container">
+        @switch (_electionModificationType)
+        {
+            case ElectionModificationType.Default:
+                break;
+                
+            case ElectionModificationType.AddUser:
+                <AddUser
+                    Label="Create Candidate"
+                    UserType="UserType.Candidate"
+                    Class="base-form"
+                    OnUserCreated="CreateCandidate"/>
+                break;
+                
+            case ElectionModificationType.AddUserToElection:
+                <div class="base-form">
+                    <form @onsubmit="SearchUsers">
+                        <label>
+                            <input type="text" @bind="_searchQuery"/>
+                        </label>
+                        <label>
+                            <input type="submit" value="@_loc["Search"]"/>
+                        </label>
+                    </form>
+                    <div>
+                        @foreach (User user in _foundUsers)
+                        {
+                            <p 
+                                @onclick="() => _selectedUser = user"
+                                class="user-select @(_selectedUser == user? "selected" : "")">
+                                @user.Email - @user.Name - @user.Id
+                            </p>
+                            <hr class="user-divider"/>
+                        }
+                        <input type="button" value="@_loc["Add"]" @onclick="AddUserToElection"/>
+                    </div>
+                </div>
+                break;
+                
+            case ElectionModificationType.AddElection:
+                <form @onsubmit="CreateElection" class="base-form">
+                    <h2 class="blue-text">@_loc["Create Election"]</h2>
+    
+                    <ValidatedInput
+                        TEntity="Election"
+                        Entity="_electionToAdd"
+                        PropertyName="@nameof(Election.Name)"
+                        ValidationContext="_electionValidationContext">
+                        <label>
+                            @_loc["Name:"] <input type="text" @bind="_electionToAdd.Name"/>
+                        </label>
+                    </ValidatedInput>
+                    
+                    <ValidatedInput
+                        TEntity="Election"
+                        Entity="_electionToAdd"
+                        PropertyName="@nameof(Election.Start)"
+                        ValidationContext="_electionValidationContext">
+                        <label>
+                            @_loc["Start:"] <input type="datetime-local" @bind="_electionToAdd.Start"/>
+                        </label>
+                    </ValidatedInput>
+                    
+                    <ValidatedInput
+                        TEntity="Election"
+                        Entity="_electionToAdd"
+                        PropertyName="@nameof(Election.End)"
+                        ValidationContext="_electionValidationContext">
+                        <label>
+                            @_loc["End:"] <input type="datetime-local" @bind="_electionToAdd.End"/>
+                        </label>
+                    </ValidatedInput>
+                    
+                    <input type="submit" value="@_loc["Create Election"]"/>
+                </form>
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    </div>
+</div>
+

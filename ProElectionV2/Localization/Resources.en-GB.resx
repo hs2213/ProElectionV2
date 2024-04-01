@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+
+    <data name="Election" xml:space="preserve">
+    <value>Election</value>
+  </data>
+    <data name="Vote" xml:space="preserve">
+    <value>Vote</value>
+  </data>
+    <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+    <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+    <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+    <data name="End" xml:space="preserve">
+    <value>End</value>
+  </data>
+    <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+    <data name="Failed to get user." xml:space="preserve">
+    <value>Failed to get user.</value>
+  </data>
+    <data name="No account associated with that email" xml:space="preserve">
+    <value>No account associated with that email</value>
+  </data>
+    <data name="Password is incorrect." xml:space="preserve">
+    <value>Password is incorrect.</value>
+  </data>
+    <data name="Get Code" xml:space="preserve">
+    <value>Get Code</value>
+  </data>
+    <data name="Status is required" xml:space="preserve">
+    <value>Status is required</value>
+  </data>
+    <data name="Enum value is not valid" xml:space="preserve">
+    <value>Enum value is not valid</value>
+  </data>
+    <data name="Id is required" xml:space="preserve">
+    <value>Id is required</value>
+  </data>
+    <data name="Please provide a Name" xml:space="preserve">
+    <value>Please provide a Name</value>
+  </data>
+    <data name="Please provide a Start Date" xml:space="preserve">
+    <value>Please provide a Start Date</value>
+  </data>
+    <data name="Start Date must be before End Date" xml:space="preserve">
+    <value>Start Date must be before End Date</value>
+  </data>
+    <data name="Please provide an End Date" xml:space="preserve">
+    <value>Please provide an End Date</value>
+  </data>
+    <data name="End Date must be after Start Date" xml:space="preserve">
+    <value>End Date must be after Start Date</value>
+  </data>
+    <data name="Election Id is required" xml:space="preserve">
+    <value>Election Id is required</value>
+  </data>
+
+    <data name="Please provide a Phone Number" xml:space="preserve">
+    <value>Please provide a Phone Number</value>
+  </data>
+    <data name="Phone number is invalid" xml:space="preserve">
+    <value>Phone number is invalid</value>
+  </data>
+    <data name="Please provide an Email" xml:space="preserve">
+    <value>Please provide an Email</value>
+  </data>
+    <data name="Email is invalid" xml:space="preserve">
+    <value>Email is invalid</value>
+  </data>
+    <data name="Please provide an Address" xml:space="preserve">
+    <value>Please provide an Address</value>
+  </data>
+    <data name="Please provide a Postcode" xml:space="preserve">
+    <value>Please provide a Postcode</value>
+  </data>
+    <data name="Postcode is Invalid" xml:space="preserve">
+    <value>Postcode is Invalid</value>
+  </data>
+    <data name="Please provide a Country" xml:space="preserve">
+    <value>Please provide a Country</value>
+  </data>
+    <data name="Password is required" xml:space="preserve">
+    <value>Password is required</value>
+  </data>
+    <data name="Password must be at least 6 characters long" xml:space="preserve">
+    <value>Password must be at least 6 characters long</value>
+  </data>
+    <data name="Password must be at most 20 characters long" xml:space="preserve">
+    <value>Password must be at most 20 characters long</value>
+  </data>
+    <data name="Password must contain at least one uppercase letter." xml:space="preserve">
+    <value>Password must contain at least one uppercase letter.</value>
+  </data>
+    <data name="Password must contain at least one lowercase letter." xml:space="preserve">
+    <value>Password must contain at least one lowercase letter.</value>
+  </data>
+    <data name="Password must contain at least one number." xml:space="preserve">
+    <value>Password must contain at least one number.</value>
+  </data>
+    <data name="Time of Vote is required" xml:space="preserve">
+    <value>Time of Vote is required</value>
+  </data>
+    <data name="Vote Cannot be cast in the past" xml:space="preserve">
+    <value>Vote Cannot be cast in the past</value>
+  </data>
+    <data name="Successfully Authenticated" xml:space="preserve">
+    <value>Successfully Authenticated</value>
+  </data>
+    <data name="Email already exists" xml:space="preserve">
+    <value>Email already exists</value>
+  </data>
+    <data name="Successfully Created User" xml:space="preserve">
+    <value>Successfully Created User</value>
+  </data>
+    <data name="User is already a part of the election" xml:space="preserve">
+    <value>User is already a part of the election</value>
+  </data>
+    <data name="Successfully added election to user" xml:space="preserve">
+    <value>Successfully added election to user</value>
+  </data>
+    <data name="Election Created" xml:space="preserve">
+    <value>Election Created</value>
+  </data>
+    <data name="Failed to get election from code. Please try again" xml:space="preserve">
+    <value>Failed to get election from code. Please try again</value>
+  </data>
+    <data name="Code has already been used." xml:space="preserve">
+    <value>Code has already been used.</value>
+  </data>
+    <data name="Election has ended or does not exist." xml:space="preserve">
+    <value>Election has ended or does not exist.</value>
+  </data>
+    <data name="Vote Sent" xml:space="preserve">
+    <value>Vote Sent</value>
+  </data>
+    <data name="Election Code Marked as Used" xml:space="preserve">
+    <value>Election Code Marked as Used</value>
+  </data>
+    <data name="Number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+    <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+    <data name="Address:" xml:space="preserve">
+    <value>Address:</value>
+  </data>
+    <data name="Postcode" xml:space="preserve">
+    <value>Postcode</value>
+  </data>
+    <data name="Create Account" xml:space="preserve">
+    <value>Create Account</value>
+  </data>
+    <data name="Sign In" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+    <data name="Create Candidate" xml:space="preserve">
+    <value>Create Candidate</value>
+  </data>
+    <data name="Create Election" xml:space="preserve">
+    <value>Create Election</value>
+  </data>
+    <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+    <data name="See Results" xml:space="preserve">
+    <value>See Results</value>
+  </data>
+    <data name="Add Candidate" xml:space="preserve">
+    <value>Add Candidate</value>
+  </data>
+    <data name="Add User" xml:space="preserve">
+    <value>Add User</value>
+  </data>
+    <data name="Get an Election Code" xml:space="preserve">
+    <value>Get an Election Code</value>
+  </data>
+    <!-- Ensure all previously mentioned terms are included before this point -->
+    <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+    <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+    <data name="User Not Found..." xml:space="preserve">
+    <value>User Not Found...</value>
+  </data>
+    <data name="Dont have an account?" xml:space="preserve">
+    <value>Don't have an account?</value>
+  </data>
+    <data name="Sign Up" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+    <data name="Code:" xml:space="preserve">
+    <value>Code:</value>
+  </data>
+    <data name="Already have a code?" xml:space="preserve">
+    <value>Already have a code?</value>
+  </data>
+</root>

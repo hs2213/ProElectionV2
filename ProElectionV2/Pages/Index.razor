@@ -1,0 +1,67 @@
+﻿@page "/"
+@using ProElectionV2.Entities
+@using System.Globalization
+
+<PageTitle>ProElectionV2</PageTitle>
+
+<div class="page-container">
+    <div class="black-half half">
+        <h1 class="app-title">@CultureInfo.CurrentCulture</h1>
+            @if (_signUpEnabled == false)
+            { 
+                <form class="middle-form" @onsubmit="AttemptSignIn">
+                    <h2 class="blue-text">@_loc["Sign In"]</h2>
+
+                    <ValidatedInput
+                        TEntity="User"
+                        Entity="_user"
+                        PropertyName="@nameof(User.Email)"
+                        ValidationContext="_userContext">
+                        <label>
+                            @_loc["Email:"] <input type="email" @bind="_user.Email"/>
+                        </label>
+                    </ValidatedInput>
+
+                    <ValidatedInput
+                        TEntity="User"
+                        Entity="_user"
+                        PropertyName="@nameof(User.HashedPassword)"
+                        ValidationContext="_userContext">
+                        <label>
+                            @_loc["Password:"] <input type="password" @bind="_user.HashedPassword"/>
+                        </label>
+                    </ValidatedInput>
+
+                    <label class="blue-text">
+                        <input type="submit" value="@_loc["Sign In"]"/>
+                    </label>
+                    
+                    <p class="blue-text pointer" @onclick="() => _signUpEnabled = true">
+                        @_loc["Dont have an account?"]
+                    </p>
+                </form>
+            }
+            else
+            {
+                <AddUser
+                    Label="Sign Up"
+                    Class="middle-form"
+                    OnUserCreated="CreateUser"
+                    />
+            }
+                
+    </div>
+    <div class="blue-half half">
+        <form class="middle-form" @onsubmit="UseElectionCode">
+            <h2>@_loc["Already have a code?"]</h2>
+            
+            <label>
+                @_loc["Code:"] <input @bind="_electionCode" placeholder="XXXX-XXXX-XXXX-XXXX"/>
+            </label>
+            
+            <label>
+                <input class="black-submit" type="submit" value="@_loc["Vote"]"/>
+            </label>
+        </form>
+    </div>
+</div>
