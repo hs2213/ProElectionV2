@@ -18,7 +18,6 @@ public sealed class ElectionService : IElectionService, IDisposable
     private readonly IValidator<ElectionCode> _electionCodeValidator;
     private readonly IValidator<Election> _electionValidator;
     private readonly IValidator<Vote> _voteValidator;
-    private readonly IValidator<User> _userValidator;
 
     public ElectionService(
         IElectionRepository electionRepository, 
@@ -28,7 +27,6 @@ public sealed class ElectionService : IElectionService, IDisposable
         IValidator<ElectionCode> electionCodeValidator, 
         IValidator<Election> electionValidator,
         IValidator<Vote> voteValidator,
-        IValidator<User> userValidator, 
         INotifyService notifyService)
     {
         _electionRepository = electionRepository;
@@ -38,7 +36,6 @@ public sealed class ElectionService : IElectionService, IDisposable
         _electionCodeValidator = electionCodeValidator;
         _electionValidator = electionValidator;
         _voteValidator = voteValidator;
-        _userValidator = userValidator;
         _notifyService = notifyService;
     }
     
@@ -70,18 +67,20 @@ public sealed class ElectionService : IElectionService, IDisposable
     }
 
     /// <inheritdoc/>
-    public async Task<ElectionCode?> GetElectionCode(Guid electionCodeId)
+    public async Task<ElectionCode?> GetElectionCodeById(Guid electionCodeId)
     {
         ElectionCode? electionCode = await _electionCodeRepository.GetById(electionCodeId);
 
         if (electionCode == null)
         {
             await _notifyService.ShowNotification("Failed to get election from code. Please try again");
+            return null;
         }
 
         if (electionCode!.Status == CodeStatus.Used)
         {
             await _notifyService.ShowNotification("Code has already been used.");
+            return electionCode;
         }
 
         Election? electionAssociated = await GetElectionById(electionCode.ElectionId);
@@ -96,7 +95,7 @@ public sealed class ElectionService : IElectionService, IDisposable
     }
     
     /// <inheritdoc/>
-    public async Task<ElectionCode> GetElectionCode(Guid electionId, Guid userId)
+    public async Task<ElectionCode> GetElectionCodeByUserAndElection(Guid electionId, Guid userId)
     {
         ElectionCode? electionCode = await _electionCodeRepository.GetByElectionAndUser(electionId, userId);
 
@@ -156,7 +155,7 @@ public sealed class ElectionService : IElectionService, IDisposable
 
         // Orders the candidates by the number of votes they got in ascending order
         return candidatesWithVoteCounts
-            .OrderBy(candidateWithVoteCount => candidateWithVoteCount.Value)
+            .OrderByDescending(candidateWithVoteCount => candidateWithVoteCount.Value)
             .ToDictionary(
                 candidateWithVoteCount => candidateWithVoteCount.Key,
                 candidateWithVoteCount => candidateWithVoteCount.Value);

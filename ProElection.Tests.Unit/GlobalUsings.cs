@@ -6,3 +6,7 @@ global using System.Collections;
 global using ProElectionV2.Entities.Enums;
 global using ProElectionV2.Repositories;
 global using Microsoft.EntityFrameworkCore;
+global using ProElection.Tests.Unit.Repositories;
+global using ProElectionV2.Entities.Validations;
+global using ProElectionV2.Services;
+global using ProElectionV2.Services.Interfaces;

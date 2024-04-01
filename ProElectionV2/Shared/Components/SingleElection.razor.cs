@@ -57,7 +57,7 @@ public partial class SingleElection : IDisposable
         }
         
         ElectionCode electionCodeResponse = 
-            await _electionService.GetElectionCode(ViewingUser.Id, Election.Id);
+            await _electionService.GetElectionCodeByUserAndElection(ViewingUser.Id, Election.Id);
         _electionCode = electionCodeResponse.Id.ToString();
     }
 

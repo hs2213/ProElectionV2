@@ -78,7 +78,7 @@ public partial class Vote : LoggedInBase, IDisposable
 
     private async Task ProcessElectionCode()
     {
-        _electionCode = await _electionService.GetElectionCode(Id);
+        _electionCode = await _electionService.GetElectionCodeById(Id);
 
         if (_electionCode is { Status: CodeStatus.New })
         {

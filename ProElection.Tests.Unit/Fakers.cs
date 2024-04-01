@@ -8,7 +8,7 @@ public static class Fakers
         {
             Id = Guid.NewGuid(),
             Email = "test@test.com",
-            HashedPassword = "9f5930755fd506140d5af6332d2d839a2c8ee29242919cd010324b3212c064c9",
+            HashedPassword = "hSErM4xE6DXgBPggygYIL17NjjBVNd6zjE6Q5kbGri0=",
             PasswordSalt = "Hello",
             UserType = userType,
             Address = "24 Test Street",

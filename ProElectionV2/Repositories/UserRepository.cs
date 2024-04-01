@@ -17,20 +17,20 @@ public class UserRepository : IUserRepository, IAsyncDisposable
     }
     
     /// <inheritdoc/>
-    public async Task<User?> GetUserById(Guid id)
+    public virtual async Task<User?> GetUserById(Guid id)
     {
         return await _dbContext.Users.SingleOrDefaultAsync(user => user.Id == id);
     }
     
     /// <inheritdoc/>
-    public async Task<User?> GetUserByEmail(string email)
+    public virtual async Task<User?> GetUserByEmail(string email)
     {
         return await _dbContext.Users
             .SingleOrDefaultAsync(user => user.Email == email);
     }
     
     /// <inheritdoc/>
-    public async Task<User> CreateUser(User user)
+    public virtual async Task<User> CreateUser(User user)
     {
         await _dbContext.Users.AddAsync(user);
         await _dbContext.SaveChangesAsync();
@@ -38,26 +38,26 @@ public class UserRepository : IUserRepository, IAsyncDisposable
     }
     
     /// <inheritdoc/>
-    public async Task<IEnumerable<User>> GetCandidates()
+    public virtual async Task<IEnumerable<User>> GetCandidates()
     {
         return await _dbContext.Users.Where(user => user.UserType == UserType.Candidate).ToListAsync();
     }
     
     /// <inheritdoc/>
-    public async Task<bool> CheckEmailExists(string email)
+    public virtual async Task<bool> CheckEmailExists(string email)
     {
         return await _dbContext.Users.AnyAsync(user => user.Email == email);
     }
     
     /// <inheritdoc/>
-    public async Task UpdateUser(User user)
+    public virtual async Task UpdateUser(User user)
     {
         _dbContext.Users.Update(user);
         await _dbContext.SaveChangesAsync();
     }
     
     /// <inheritdoc/>
-    public async Task<IEnumerable<User>> GetCandidatesOfAnElection(Guid electionId)
+    public virtual async Task<IEnumerable<User>> GetCandidatesOfAnElection(Guid electionId)
     {
         return await _dbContext.Users
             .Where(user => user.UserType == UserType.Candidate)
@@ -66,7 +66,7 @@ public class UserRepository : IUserRepository, IAsyncDisposable
     }
 
     /// <inheritdoc/>
-    public async Task<IEnumerable<User>> GetUserBySearchForElection(string searchQuery, UserType userType, Guid electionId)
+    public virtual async Task<IEnumerable<User>> GetUserBySearchForElection(string searchQuery, UserType userType, Guid electionId)
     {
         return await _dbContext.Users
             .Where(user => user.UserType == userType)

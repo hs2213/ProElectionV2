@@ -38,7 +38,7 @@ public interface IElectionService
     /// </summary>
     /// <param name="electionCodeId">Id of the election code to get</param>
     /// <returns><see cref="ElectionCode"/> containing the given ID or null if it doesnt exist</returns>
-    public Task<ElectionCode?> GetElectionCode(Guid electionCodeId);
+    public Task<ElectionCode?> GetElectionCodeById(Guid electionCodeId);
 
     /// <summary>
     /// Gets an <see cref="ElectionCode"/> associated with the user Id and election Id.
@@ -47,7 +47,7 @@ public interface IElectionService
     /// <param name="electionId">Id of election</param>
     /// <param name="userId">Id of user</param>
     /// <returns><see cref="ElectionCode"/> associated with the user ID and election ID given</returns>
-    public Task<ElectionCode> GetElectionCode(Guid electionId, Guid userId);
+    public Task<ElectionCode> GetElectionCodeByUserAndElection(Guid electionId, Guid userId);
 
     /// <summary>
     /// Records a new vote for a user

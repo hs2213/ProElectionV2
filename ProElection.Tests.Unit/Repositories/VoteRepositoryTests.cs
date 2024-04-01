@@ -2,11 +2,11 @@
 
 public class VoteRepositoryTests : DbFaker
 {
-    private readonly IVoteRepository _substituteVoteRepository;
+    private readonly IVoteRepository _sut;
 
     public VoteRepositoryTests()
     {
-        _substituteVoteRepository = Substitute.For<VoteRepository>(InMemoryDb);
+        _sut = new VoteRepository(InMemoryDb);
     }
     
     [Fact]
@@ -16,7 +16,7 @@ public class VoteRepositoryTests : DbFaker
         Vote vote = Fakers.FakeVote();
         
         // Act
-        await _substituteVoteRepository.Create(vote);
+        await _sut.Create(vote);
         Vote? voteInDb = await InMemoryDb.Votes.FirstOrDefaultAsync(v => v.Id == vote.Id);
         
         // Assert
@@ -33,7 +33,7 @@ public class VoteRepositoryTests : DbFaker
         await InMemoryDb.SaveChangesAsync();
         
         // Act
-        bool result = await _substituteVoteRepository.CheckIfUserVotedInElection(vote.UserId, vote.ElectionId);
+        bool result = await _sut.CheckIfUserVotedInElection(vote.UserId, vote.ElectionId);
         
         // Assert
         Assert.True(result);
@@ -46,7 +46,7 @@ public class VoteRepositoryTests : DbFaker
         Vote vote = Fakers.FakeVote();
         
         // Act
-        bool result = await _substituteVoteRepository.CheckIfUserVotedInElection(vote.UserId, vote.ElectionId);
+        bool result = await _sut.CheckIfUserVotedInElection(vote.UserId, vote.ElectionId);
         
         // Assert
         Assert.False(result);
@@ -71,7 +71,7 @@ public class VoteRepositoryTests : DbFaker
         await InMemoryDb.SaveChangesAsync();
         
         // Act
-        int result = await _substituteVoteRepository.GetCandidateVotesByElectionId(candidateId, electionId);
+        int result = await _sut.GetCandidateVotesByElectionId(candidateId, electionId);
         
         // Assert
         Assert.Equal(2, result);

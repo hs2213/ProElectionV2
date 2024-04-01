@@ -29,12 +29,6 @@ public interface IUserService
     /// <param name="election">election to get candidates of</param>
     /// <returns>List of <see cref="User"/> with the candidate user type for the given election.</returns>
     public Task<IEnumerable<User>> GetCandidatesForElection(Election election);
-    
-    /// <summary>
-    /// Gets all the users with the type of <see cref="UserType.Candidate"/>
-    /// </summary>
-    /// <returns>List of <see cref="User"/> of type <see cref="UserType.Candidate"/></returns>
-    public Task<IEnumerable<User>> GetCandidates();
 
     /// <summary>
     /// Creates a new user, hashing its password.

@@ -42,9 +42,6 @@ public sealed class UserService : IUserService, IDisposable
 
         return user;
     } 
-
-    /// <inheritdoc/>
-    public async Task<IEnumerable<User>> GetCandidates() => await _userRepository.GetCandidates();
     
     /// <inheritdoc/>
     public async Task<User?> Authenticate(string email, string password)

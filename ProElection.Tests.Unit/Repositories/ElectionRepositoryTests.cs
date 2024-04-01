@@ -2,11 +2,11 @@
 
 public class ElectionRepositoryTests : DbFaker
 {
-    private readonly IElectionRepository _electionRepository;
+    private readonly IElectionRepository _sut;
 
     public ElectionRepositoryTests()
     {
-        _electionRepository = Substitute.For<ElectionRepository>(InMemoryDb);
+        _sut = new ElectionRepository(InMemoryDb);
     }
     
     [Fact]
@@ -23,7 +23,7 @@ public class ElectionRepositoryTests : DbFaker
         await InMemoryDb.SaveChangesAsync();
         
         // Act
-        IEnumerable<Election> result = await _electionRepository.GetElections();
+        IEnumerable<Election> result = await _sut.GetElections();
         
         // Assert
         Assert.NotEmpty(result);
@@ -40,7 +40,7 @@ public class ElectionRepositoryTests : DbFaker
         await InMemoryDb.SaveChangesAsync();
         
         // Act
-        Election? result = await _electionRepository.GetElectionById(fakeElection.Id);
+        Election? result = await _sut.GetElectionById(fakeElection.Id);
         
         // Assert
         Assert.NotNull(result);
@@ -54,7 +54,7 @@ public class ElectionRepositoryTests : DbFaker
         Election fakeElection = Fakers.FakeElection();
         
         // Act
-        await _electionRepository.CreateElection(fakeElection);
+        await _sut.CreateElection(fakeElection);
         
         Election? electionInDb = 
             await InMemoryDb.Elections.SingleOrDefaultAsync(election => election.Id == fakeElection.Id);
@@ -77,7 +77,7 @@ public class ElectionRepositoryTests : DbFaker
         updatedElection.Name = "Updated Election";
         
         // Act
-        await _electionRepository.UpdateElection(fakeElection);
+        await _sut.UpdateElection(fakeElection);
         
         Election? electionInDb = 
             await InMemoryDb.Elections.SingleOrDefaultAsync(election => election.Id == fakeElection.Id);

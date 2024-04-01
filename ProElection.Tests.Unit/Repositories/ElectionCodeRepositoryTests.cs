@@ -2,11 +2,11 @@
 
 public class ElectionCodeRepositoryTests : DbFaker
 {
-    private IElectionCodeRepository _substituteElectionCodeRepository;
+    private readonly IElectionCodeRepository _sut;
 
     public ElectionCodeRepositoryTests()
     {
-        _substituteElectionCodeRepository = Substitute.For<ElectionCodeRepository>(InMemoryDb);
+        _sut = new ElectionCodeRepository(InMemoryDb);
     }
     
     [Fact]
@@ -16,7 +16,7 @@ public class ElectionCodeRepositoryTests : DbFaker
         ElectionCode electionCode = Fakers.FakeElectionCode();
         
         // Act
-        await _substituteElectionCodeRepository.Create(electionCode);
+        await _sut.Create(electionCode);
         ElectionCode? storedElectionCode = await InMemoryDb.ElectionCodes
             .SingleOrDefaultAsync(code => code.Id == electionCode.Id);
 
@@ -33,7 +33,7 @@ public class ElectionCodeRepositoryTests : DbFaker
         await InMemoryDb.SaveChangesAsync();
         
         // Act
-        ElectionCode? storedElectionCode = await _substituteElectionCodeRepository.GetById(electionCode.Id);
+        ElectionCode? storedElectionCode = await _sut.GetById(electionCode.Id);
 
         // Assert
         Assert.NotNull(storedElectionCode);
@@ -50,7 +50,7 @@ public class ElectionCodeRepositoryTests : DbFaker
         await InMemoryDb.SaveChangesAsync();
         
         // Act
-        ElectionCode? storedElectionCode = await _substituteElectionCodeRepository
+        ElectionCode? storedElectionCode = await _sut
             .GetByElectionAndUser(electionCode.ElectionId, electionCode.UserId);
 
         // Assert
@@ -71,7 +71,7 @@ public class ElectionCodeRepositoryTests : DbFaker
         updatedElectionCode.Status = CodeStatus.Used;
         
         // Act
-        await _substituteElectionCodeRepository.Update(updatedElectionCode);
+        await _sut.Update(updatedElectionCode);
         
         ElectionCode? storedElectionCode = await InMemoryDb.ElectionCodes
             .SingleOrDefaultAsync(code => code.Id == electionCode.Id);

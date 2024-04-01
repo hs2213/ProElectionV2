@@ -15,20 +15,20 @@ public class VoteRepository : IVoteRepository, IAsyncDisposable
     }
     
     /// <inheritdoc/>
-    public async Task Create(Vote vote)
+    public virtual async Task Create(Vote vote)
     {
         await _dbContext.Votes.AddAsync(vote);
         await _dbContext.SaveChangesAsync();
     }
     
     /// <inheritdoc/>
-    public async Task<bool> CheckIfUserVotedInElection(Guid userId, Guid electionId)
+    public virtual async Task<bool> CheckIfUserVotedInElection(Guid userId, Guid electionId)
     {
         return await _dbContext.Votes.AnyAsync(vote => vote.UserId == userId && vote.ElectionId == electionId);
     }
     
     /// <inheritdoc/>
-    public async Task<int> GetCandidateVotesByElectionId(Guid candidateId, Guid electionId)
+    public virtual async Task<int> GetCandidateVotesByElectionId(Guid candidateId, Guid electionId)
     {
         return await _dbContext.Votes
             .CountAsync(vote => vote.CandidateId == candidateId && vote.ElectionId == electionId);
