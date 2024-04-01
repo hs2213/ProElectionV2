@@ -2,30 +2,18 @@
 
 public class VoteRepositoryTests : DbFaker
 {
-    private IVoteRepository _substituteVoteRepository;
+    private readonly IVoteRepository _substituteVoteRepository;
 
     public VoteRepositoryTests()
     {
         _substituteVoteRepository = Substitute.For<VoteRepository>(InMemoryDb);
-    }
-
-    private Vote FakeVote()
-    {
-        return new Vote
-        {
-            Id = Guid.NewGuid(),
-            UserId = Guid.NewGuid(),
-            CandidateId = Guid.NewGuid(),
-            ElectionId = Guid.NewGuid(),
-            Time = DateTimeOffset.Now,
-        };
     }
     
     [Fact]
     public async Task Create_Vote_ShouldAddVoteToDb()
     {
         // Arrange
-        Vote vote = FakeVote();
+        Vote vote = Fakers.FakeVote();
         
         // Act
         await _substituteVoteRepository.Create(vote);
@@ -40,7 +28,7 @@ public class VoteRepositoryTests : DbFaker
     public async Task CheckIfUserVotedInElection_UserVoted_ShouldReturnTrue()
     {
         // Arrange
-        Vote vote = FakeVote();
+        Vote vote = Fakers.FakeVote();
         await InMemoryDb.Votes.AddAsync(vote);
         await InMemoryDb.SaveChangesAsync();
         
@@ -55,7 +43,7 @@ public class VoteRepositoryTests : DbFaker
     public async Task CheckIfUserVotedInElection_UserNotVoted_ShouldReturnFalse()
     {
         // Arrange
-        Vote vote = FakeVote();
+        Vote vote = Fakers.FakeVote();
         
         // Act
         bool result = await _substituteVoteRepository.CheckIfUserVotedInElection(vote.UserId, vote.ElectionId);
@@ -71,11 +59,11 @@ public class VoteRepositoryTests : DbFaker
         Guid electionId = Guid.NewGuid();
         Guid candidateId = Guid.NewGuid();
         
-        Vote vote1 = FakeVote();
+        Vote vote1 = Fakers.FakeVote();
         vote1.ElectionId = electionId;
         vote1.CandidateId = candidateId;
         
-        Vote vote2 = FakeVote();
+        Vote vote2 = Fakers.FakeVote();
         vote2.ElectionId = electionId;
         vote2.CandidateId = candidateId;
         

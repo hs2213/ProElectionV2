@@ -9,22 +9,11 @@ public class ElectionCodeRepositoryTests : DbFaker
         _substituteElectionCodeRepository = Substitute.For<ElectionCodeRepository>(InMemoryDb);
     }
     
-    private ElectionCode FakeElectionCode()
-    {
-        return new ElectionCode
-        {
-            Id = Guid.NewGuid(),
-            ElectionId = Guid.NewGuid(),
-            UserId = Guid.NewGuid(),
-            Status = CodeStatus.New
-        };
-    }
-    
     [Fact]
     public async Task Create_ShouldAddElectionCodeToDatabase()
     {
         // Arrange
-        ElectionCode electionCode = FakeElectionCode();
+        ElectionCode electionCode = Fakers.FakeElectionCode();
         
         // Act
         await _substituteElectionCodeRepository.Create(electionCode);
@@ -39,7 +28,7 @@ public class ElectionCodeRepositoryTests : DbFaker
     public async Task GetById_ShouldReturnElectionCode()
     {
         // Arrange
-        ElectionCode electionCode = FakeElectionCode();
+        ElectionCode electionCode = Fakers.FakeElectionCode();
         await InMemoryDb.ElectionCodes.AddAsync(electionCode);
         await InMemoryDb.SaveChangesAsync();
         
@@ -55,7 +44,7 @@ public class ElectionCodeRepositoryTests : DbFaker
     public async Task GetByElectionAndUser_ShouldReturnCorrectElectionCode()
     {
         // Arrange
-        ElectionCode electionCode = FakeElectionCode();
+        ElectionCode electionCode = Fakers.FakeElectionCode();
         
         await InMemoryDb.ElectionCodes.AddAsync(electionCode);
         await InMemoryDb.SaveChangesAsync();
@@ -73,7 +62,7 @@ public class ElectionCodeRepositoryTests : DbFaker
     public async Task Update_ShouldUpdateElectionCode()
     {
         // Arrange
-        ElectionCode electionCode = FakeElectionCode();
+        ElectionCode electionCode = Fakers.FakeElectionCode();
         
         await InMemoryDb.ElectionCodes.AddAsync(electionCode);
         await InMemoryDb.SaveChangesAsync();

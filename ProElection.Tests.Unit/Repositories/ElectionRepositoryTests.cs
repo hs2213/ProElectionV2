@@ -2,21 +2,12 @@
 
 public class ElectionRepositoryTests : DbFaker
 {
-    private IElectionRepository _electionRepository;
+    private readonly IElectionRepository _electionRepository;
 
     public ElectionRepositoryTests()
     {
         _electionRepository = Substitute.For<ElectionRepository>(InMemoryDb);
     }
-    
-    private static Election FakeElection() => new Election
-    {
-        Id = Guid.NewGuid(),
-        Name = "Fake Election",
-        Start = DateTime.Now,
-        End = DateTime.Now.AddDays(1),
-        ElectionType = ElectionType.FirstPastThePost
-    };
     
     [Fact]
     public async Task GetElections_ShouldReturnAllElections()
@@ -24,9 +15,9 @@ public class ElectionRepositoryTests : DbFaker
         // Arrange
         IEnumerable<Election> fakeElections = new List<Election>
         {
-            FakeElection(),
-            FakeElection(),
-            FakeElection()
+            Fakers.FakeElection(),
+            Fakers.FakeElection(),
+            Fakers.FakeElection()
         };
         InMemoryDb.Elections.AddRange(fakeElections);
         await InMemoryDb.SaveChangesAsync();
@@ -43,7 +34,7 @@ public class ElectionRepositoryTests : DbFaker
     public async Task GetElectionById_ShouldReturnCorrectElection()
     {
         // Arrange
-        Election fakeElection = FakeElection();
+        Election fakeElection = Fakers.FakeElection();
         
         InMemoryDb.Elections.Add(fakeElection);
         await InMemoryDb.SaveChangesAsync();
@@ -60,7 +51,7 @@ public class ElectionRepositoryTests : DbFaker
     public async Task CreateElection_ShouldCreateElection()
     {
         // Arrange
-        Election fakeElection = FakeElection();
+        Election fakeElection = Fakers.FakeElection();
         
         // Act
         await _electionRepository.CreateElection(fakeElection);
@@ -77,7 +68,7 @@ public class ElectionRepositoryTests : DbFaker
     public async Task UpdateElection_ShouldUpdateElection()
     {
         // Arrange
-        Election fakeElection = FakeElection();
+        Election fakeElection = Fakers.FakeElection();
         
         InMemoryDb.Elections.Add(fakeElection);
         await InMemoryDb.SaveChangesAsync();
