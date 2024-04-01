@@ -7,6 +7,10 @@ using ProElectionV2.Services.Interfaces;
 
 namespace ProElectionV2.Shared.ComponentBases;
 
+/// <summary>
+/// Base class for pages that require a user to be logged in.
+/// Stores user details.
+/// </summary>
 public class LoggedInBase : ComponentBase
 {
     [Inject]

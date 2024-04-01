@@ -6,6 +6,12 @@ namespace ProElectionV2.Controllers;
 
 public class CultureController : Controller
 {
+    /// <summary>
+    /// Causes culture change by modifying cookie and redirects to the specified URL.
+    /// </summary>
+    /// <param name="culture">Culture code to change to</param>
+    /// <param name="returnUrl">URL to return to</param>
+    /// <returns>Redirects to given URL.</returns>
     [Route("culture/change")]
     public IActionResult Change(string culture, string returnUrl)
     {

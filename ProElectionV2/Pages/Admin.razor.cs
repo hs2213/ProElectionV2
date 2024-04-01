@@ -57,7 +57,7 @@ public partial class Admin : LoggedInBase, IDisposable
             StateHasChanged();
         }
     }
-
+    
     private async Task CreateElection()
     {
         _electionValidationContext.Reset();
