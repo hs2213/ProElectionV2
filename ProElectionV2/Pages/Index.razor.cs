@@ -17,6 +17,9 @@ public partial class Index : IDisposable
     [Inject] 
     private IUserService _userService { get; set; } = default!;
 
+    [Inject]
+    private IElectionService _electionService { get; set; } = default!;
+    
     [Inject] 
     private ProtectedSessionStorage _protectedSessionStorage { get; set; } = default!;
     
@@ -24,6 +27,8 @@ public partial class Index : IDisposable
     private IStringLocalizer<Resources> _loc { get; set; } = default!;
 
     private bool _signUpEnabled = false;
+    
+    private bool _invalidElectionCode = false;
 
     private readonly ValidationContext _userContext = new ValidationContext();
 
@@ -89,8 +94,17 @@ public partial class Index : IDisposable
 
     private void UseElectionCode()
     {
+        _invalidElectionCode = false;
+        
         if (string.IsNullOrWhiteSpace(_electionCode))
         {
+            return;
+        }
+
+        if (Guid.TryParse(_electionCode, out _) == false)
+        {
+            _invalidElectionCode = true;
+            StateHasChanged();
             return;
         }
         

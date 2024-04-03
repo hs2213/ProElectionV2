@@ -111,9 +111,13 @@ public partial class Admin : LoggedInBase, IDisposable
     
     private void OnAddUserToElectionClicked((Election election, UserType userType) args)
     {
+        _foundUsers.Clear();
+        
         _userTypeToSearchFor = args.userType;
         _selectedElection = args.election;
+        
         _electionModificationType = ElectionModificationType.AddUserToElection;
+        
         StateHasChanged();
     }
 

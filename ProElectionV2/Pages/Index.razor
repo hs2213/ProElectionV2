@@ -55,9 +55,15 @@
         <form class="middle-form" @onsubmit="UseElectionCode">
             <h2>@_loc["Already have a code?"]</h2>
             
-            <label>
-                @_loc["Code:"] <input @bind="_electionCode" placeholder="XXXX-XXXX-XXXX-XXXX"/>
-            </label>
+            <div>
+                <label>
+                    @_loc["Code:"] <input @bind="_electionCode" placeholder="XXXX-XXXX-XXXX-XXXX"/>
+                </label>
+                @if (_invalidElectionCode)
+                {
+                    <p style="color: #b32121; font-size: .7rem">Election code is invalid</p>
+                }
+            </div>
             
             <label>
                 <input class="black-submit" type="submit" value="@_loc["Vote"]"/>

@@ -35,6 +35,11 @@ public partial class Vote : LoggedInBase, IDisposable
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        if (IsInPerson)
+        {
+            await ProcessElectionCode();
+        }
+        
         await base.OnAfterRenderAsync(firstRender);
 
         if (firstRender)
@@ -42,10 +47,6 @@ public partial class Vote : LoggedInBase, IDisposable
             if (IsInPerson == false)
             {
                 await ProcessElectionId();
-            }
-            else
-            {
-                await ProcessElectionCode();
             }
             
             if (_failedToGetElection)
@@ -87,6 +88,8 @@ public partial class Vote : LoggedInBase, IDisposable
             UserId = _electionCode.UserId;
             ViewingUser = await UserService.GetUserById(UserId);
             _election = await _electionService.GetElectionById(_electionCode.ElectionId);
+
+            await ProtectedSessionStorage.SetAsync("userId", UserId);
             return;
         }
 

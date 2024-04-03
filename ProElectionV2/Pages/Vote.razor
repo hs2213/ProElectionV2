@@ -4,7 +4,7 @@
 
 <h1>Vote</h1>
 
-@if (_votingDisabled)
+@if (_votingDisabled && _resultsAvailable == false)
 {
     <h2>It seems you cannot vote in this election.</h2>
 }
