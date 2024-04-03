@@ -4,7 +4,7 @@
     <div
         @ondblclick="@NavigateToVotePage"
         class="election-container
-               @(Election.End < DateTime.Now ? "completed-election" : "")">
+               @((Election.End < DateTime.Now || Election.Start > DateTime.Now)? "completed-election" : "")">
 
         <div class="sub-container">
             <h3>@Election.Name</h3>

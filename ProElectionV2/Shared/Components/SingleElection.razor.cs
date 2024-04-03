@@ -31,6 +31,11 @@ public partial class SingleElection : IDisposable
     
     private void NavigateToVotePage()
     {
+        if (Election.Start > DateTime.Now)
+        {
+            return;
+        }
+        
         _navigationManager.NavigateTo($"/vote?Id={Election.Id}&IsInPerson=false");
     }
     
@@ -57,7 +62,7 @@ public partial class SingleElection : IDisposable
         }
         
         ElectionCode electionCodeResponse = 
-            await _electionService.GetElectionCodeByUserAndElection(ViewingUser.Id, Election.Id);
+            await _electionService.GetElectionCodeByUserAndElection(Election.Id, ViewingUser.Id);
         _electionCode = electionCodeResponse.Id.ToString();
     }
 
