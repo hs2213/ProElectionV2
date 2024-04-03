@@ -24,7 +24,9 @@ public class VoteRepository : IVoteRepository, IAsyncDisposable
     /// <inheritdoc/>
     public async Task<bool> CheckIfUserVotedInElection(Guid userId, Guid electionId)
     {
-        return await _dbContext.Votes.AnyAsync(vote => vote.UserId == userId && vote.ElectionId == electionId);
+        List<Vote> matches = await _dbContext.Votes
+            .Where(vote => vote.UserId == userId && vote.ElectionId == electionId).ToListAsync();
+        return matches.Count > 0;
     }
     
     /// <inheritdoc/>

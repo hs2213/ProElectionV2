@@ -27,6 +27,8 @@ public partial class Vote : LoggedInBase, IDisposable
     
     private bool _votingDisabled = false;
     
+    private bool _resultsAvailable = false;
+    
     private bool _alreadyVoted = false;
     
     private bool _failedToGetElection = false;
@@ -62,10 +64,10 @@ public partial class Vote : LoggedInBase, IDisposable
             if (_election!.End < DateTime.Now)
             {
                 await GetResults();
-                _votingDisabled = true;
+                _resultsAvailable = true;
             }
 
-            _alreadyVoted = await _electionService.CheckIfUserVoted(_election.Id, UserId);
+            _alreadyVoted = await _electionService.CheckIfUserVoted(UserId, _election.Id);
 
             if (_alreadyVoted)
             {
@@ -108,7 +110,7 @@ public partial class Vote : LoggedInBase, IDisposable
     
     private async Task PlaceVote(User candidate)
     {
-        if (_votingDisabled)
+        if (_votingDisabled || _resultsAvailable)
         {
             _navigationManager.NavigateTo("/elections");
             return;

@@ -3,3 +3,13 @@
     flex-direction: column;
     gap: 1rem;
 }
+
+.base-form:hover {
+    background-color: #89cff0;
+    color: #121212;
+    cursor: pointer;
+}
+
+.base-form:hover > h2, .base-form:hover > p {
+    color: #121212;
+}

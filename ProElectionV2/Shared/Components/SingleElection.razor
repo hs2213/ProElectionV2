@@ -14,7 +14,7 @@
             }
         </div>
 
-        @if (ViewingUser.UserType == UserType.Admin)
+        @if (ViewingUser.UserType == UserType.Admin && Election.End > DateTime.Now)
         {
             <div class="sub-container right">
                 <input type="button" value="@_loc["Add Candidate"]" @onclick="() => AddUserToElection(UserType.Candidate)"/>

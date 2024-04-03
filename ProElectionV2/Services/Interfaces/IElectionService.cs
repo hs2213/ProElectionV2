@@ -69,7 +69,7 @@ public interface IElectionService
     /// <param name="electionId">Election Id of election to check</param>
     /// <param name="userId">User Id of user to check</param>
     /// <returns>true if a user has voted in the given election</returns>
-    public Task<bool> CheckIfUserVoted(Guid electionId, Guid userId);
+    public Task<bool> CheckIfUserVoted(Guid userId, Guid electionId);
 
     /// <summary>
     /// Calculates the results of an election from a given election ID.

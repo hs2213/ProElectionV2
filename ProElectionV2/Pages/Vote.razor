@@ -4,16 +4,23 @@
 
 <h1>Vote</h1>
 
-<div class="candidate-list">
-    @foreach (User candidate in _candidates)
-    {
-        <div class="base-form" @onclick="() => PlaceVote(candidate)">
-            <h2>@candidate.Name</h2>
-        
-            @if (_election?.End < DateTime.Now)
-            {
-                <p>@_candidatesResults?[candidate]</p>
-            }
-        </div>
-    }
-</div>
+@if (_votingDisabled)
+{
+    <h2>It seems you cannot vote in this election.</h2>
+}
+else
+{
+    <div class="candidate-list">
+        @foreach (User candidate in _candidates)
+        {
+            <div class="base-form" @onclick="() => PlaceVote(candidate)">
+                <h2>@candidate.Name</h2>
+
+                @if (_election?.End < DateTime.Now)
+                {
+                    <p>@_candidatesResults?[candidate]</p>
+                }
+            </div>
+        }
+    </div>
+}

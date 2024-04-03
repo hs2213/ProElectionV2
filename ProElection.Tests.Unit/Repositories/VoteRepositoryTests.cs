@@ -27,13 +27,16 @@ public class VoteRepositoryTests : DbFaker
     [Fact]
     public async Task CheckIfUserVotedInElection_UserVoted_ShouldReturnTrue()
     {
-        // Arrange
+        // Arrange.
+        User voter = Fakers.FakeUser(UserType.Voter);
+        
         Vote vote = Fakers.FakeVote();
+        vote.UserId = voter.Id;
         await InMemoryDb.Votes.AddAsync(vote);
         await InMemoryDb.SaveChangesAsync();
         
         // Act
-        bool result = await _sut.CheckIfUserVotedInElection(vote.UserId, vote.ElectionId);
+        bool result = await _sut.CheckIfUserVotedInElection(voter.Id, vote.ElectionId);
         
         // Assert
         Assert.True(result);
