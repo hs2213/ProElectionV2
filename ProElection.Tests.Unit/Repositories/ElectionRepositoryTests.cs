@@ -40,7 +40,7 @@ public class ElectionRepositoryTests : DbFaker
         await InMemoryDb.SaveChangesAsync();
         
         // Act
-        Election? result = await _sut.GetElectionById(fakeElection.Id);
+        Election? result = await _sut.GetById(fakeElection.Id);
         
         // Assert
         Assert.NotNull(result);
@@ -54,7 +54,7 @@ public class ElectionRepositoryTests : DbFaker
         Election fakeElection = Fakers.FakeElection();
         
         // Act
-        await _sut.CreateElection(fakeElection);
+        await _sut.Create(fakeElection);
         
         Election? electionInDb = 
             await InMemoryDb.Elections.SingleOrDefaultAsync(election => election.Id == fakeElection.Id);
@@ -77,7 +77,7 @@ public class ElectionRepositoryTests : DbFaker
         updatedElection.Name = "Updated Election";
         
         // Act
-        await _sut.UpdateElection(fakeElection);
+        await _sut.Update(fakeElection);
         
         Election? electionInDb = 
             await InMemoryDb.Elections.SingleOrDefaultAsync(election => election.Id == fakeElection.Id);

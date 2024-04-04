@@ -5,15 +5,8 @@ namespace ProElectionV2.Repositories.Interfaces;
 /// <summary>
 /// Repository containing methods for interacting with the votes table in the database.
 /// </summary>
-public interface IVoteRepository
+public interface IVoteRepository : IBaseRepository<Vote>
 {
-    /// <summary>
-    /// Creates a new vote in the votes table in the database.
-    /// </summary>
-    /// <param name="vote"><see cref="Vote"/> to add to the database.</param>
-    /// <returns></returns>
-    public Task Create(Vote vote);
-
     /// <summary>
     /// Checks if a user has voted in a specific election.
     /// </summary>

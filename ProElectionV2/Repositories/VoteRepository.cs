@@ -5,7 +5,7 @@ using ProElectionV2.Repositories.Interfaces;
 
 namespace ProElectionV2.Repositories;
 
-public class VoteRepository : IVoteRepository, IAsyncDisposable
+public class VoteRepository : IVoteRepository
 {
     private readonly ProElectionV2DbContext _dbContext;
 
@@ -13,12 +13,14 @@ public class VoteRepository : IVoteRepository, IAsyncDisposable
     {
         _dbContext = dbContext;
     }
-    
+
     /// <inheritdoc/>
-    public async Task Create(Vote vote)
+    public async Task<Vote> Create(Vote vote)
     {
         await _dbContext.Votes.AddAsync(vote);
         await _dbContext.SaveChangesAsync();
+
+        return vote;
     }
     
     /// <inheritdoc/>
@@ -34,6 +36,16 @@ public class VoteRepository : IVoteRepository, IAsyncDisposable
     {
         return await _dbContext.Votes
             .CountAsync(vote => vote.CandidateId == candidateId && vote.ElectionId == electionId);
+    }
+    
+    public Task<Vote?> GetById(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task Update(Vote obj)
+    {
+        throw new NotImplementedException();
     }
 
     public async ValueTask DisposeAsync()

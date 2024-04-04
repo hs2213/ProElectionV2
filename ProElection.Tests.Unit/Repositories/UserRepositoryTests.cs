@@ -18,7 +18,7 @@ public class UserRepositoryTests : DbFaker
         await InMemoryDb.SaveChangesAsync();
         
         // Act
-        User? response = await _sut.GetUserById(user.Id);
+        User? response = await _sut.GetById(user.Id);
         
         // Assert
         Assert.NotNull(response);
@@ -32,7 +32,7 @@ public class UserRepositoryTests : DbFaker
         User user = Fakers.FakeUser(UserType.Voter);
         
         // Act
-        User? response = await _sut.GetUserById(user.Id);
+        User? response = await _sut.GetById(user.Id);
         
         // Assert
         Assert.Null(response);
@@ -76,7 +76,7 @@ public class UserRepositoryTests : DbFaker
         User fakeUser = Fakers.FakeUser(UserType.Voter);
         
         // Act
-        User response = await _sut.CreateUser(fakeUser);
+        User response = await _sut.Create(fakeUser);
         
         User? createdUser = await InMemoryDb.Users.SingleOrDefaultAsync(user => user.Id == response.Id);
         
@@ -148,7 +148,7 @@ public class UserRepositoryTests : DbFaker
         updatedUser.Name = "Updated Name";
         
         // Act
-        await _sut.UpdateUser(updatedUser);
+        await _sut.Update(updatedUser);
         
         User? response = await InMemoryDb.Users.SingleOrDefaultAsync(user => user.Id == updatedUser.Id);
         

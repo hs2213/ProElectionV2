@@ -5,7 +5,7 @@ using ProElectionV2.Repositories.Interfaces;
 
 namespace ProElectionV2.Repositories;
 
-public class ElectionRepository : IElectionRepository, IAsyncDisposable
+public class ElectionRepository : IElectionRepository
 {
     private readonly ProElectionV2DbContext _dbContext;
 
@@ -26,13 +26,13 @@ public class ElectionRepository : IElectionRepository, IAsyncDisposable
     }
     
     /// <inheritdoc/>
-    public async Task<Election?> GetElectionById(Guid id)
+    public async Task<Election?> GetById(Guid id)
     {
         return await _dbContext.Elections.SingleOrDefaultAsync(election => election.Id == id);
     }
     
     /// <inheritdoc/>
-    public async Task<Election> CreateElection(Election election)
+    public async Task<Election> Create(Election election)
     {
         await _dbContext.Elections.AddAsync(election);
         await _dbContext.SaveChangesAsync();
@@ -40,7 +40,7 @@ public class ElectionRepository : IElectionRepository, IAsyncDisposable
     }
     
     /// <inheritdoc/>
-    public async Task UpdateElection(Election election)
+    public async Task Update(Election election)
     {
         _dbContext.Elections.Update(election);
         await _dbContext.SaveChangesAsync();

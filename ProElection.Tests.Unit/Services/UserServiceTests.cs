@@ -25,7 +25,7 @@ public class UserServiceTests : DbFaker
     {
         // Arrange
         var user = Fakers.FakeUser(UserType.Voter);
-        _substituteUserRepository.GetUserById(user.Id).Returns(user);
+        _substituteUserRepository.GetById(user.Id).Returns(user);
         
         // Act
         var result = await _sut.GetUserById(user.Id);
@@ -40,7 +40,7 @@ public class UserServiceTests : DbFaker
     {
         // Arrange
         Guid userId = Guid.NewGuid();
-        _substituteUserRepository.GetUserById(userId).Returns((User?)null);
+        _substituteUserRepository.GetById(userId).Returns((User?)null);
         
         // Act
         var result = await _sut.GetUserById(userId);
@@ -116,7 +116,7 @@ public class UserServiceTests : DbFaker
         // Arrange
         User user = Fakers.FakeUser(UserType.Voter);
         _substituteUserRepository.CheckEmailExists(user.Email).Returns(false);
-        _substituteUserRepository.CreateUser(user).Returns(user);
+        _substituteUserRepository.Create(user).Returns(user);
         
         // Act
         User? result = await _sut.CreateUser(user);
@@ -140,7 +140,7 @@ public class UserServiceTests : DbFaker
         User user = Fakers.FakeUser(UserType.Voter);
         user.ParticipatingElections = [elections[0].Id, elections[1].Id, elections[2].Id];
         
-        _substituteUserRepository.GetUserById(user.Id).Returns(user);
+        _substituteUserRepository.GetById(user.Id).Returns(user);
         _substituteElectionService.GetElectionsByMultipleIds(user.ParticipatingElections).Returns(elections);
         
         // Act
@@ -156,7 +156,7 @@ public class UserServiceTests : DbFaker
     {
         // Arrange
         Guid userId = Guid.NewGuid();
-        _substituteUserRepository.GetUserById(userId).Returns((User?)null);
+        _substituteUserRepository.GetById(userId).Returns((User?)null);
         
         // Act
         var result = await _sut.GetUserElections(userId);
@@ -199,7 +199,7 @@ public class UserServiceTests : DbFaker
 
         // Assert
         await _substituteNotifyService.DidNotReceive().ShowNotification("User is already a part of the election");
-        await _substituteUserRepository.Received(1).UpdateUser(user);
+        await _substituteUserRepository.Received(1).Update(user);
         Assert.Contains(election.Id, user.ParticipatingElections);
     }
     
@@ -216,7 +216,7 @@ public class UserServiceTests : DbFaker
 
         // Assert
         await _substituteNotifyService.Received(1).ShowNotification("User is already a part of the election");
-        await _substituteUserRepository.DidNotReceive().UpdateUser(user);
+        await _substituteUserRepository.DidNotReceive().Update(user);
         Assert.Contains(election.Id, user.ParticipatingElections);
     }
     

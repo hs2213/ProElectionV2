@@ -1,7 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using FluentValidation;
-using Microsoft.AspNetCore.Identity;
 using ProElectionV2.Entities;
 using ProElectionV2.Entities.Enums;
 using ProElectionV2.Repositories.Interfaces;
@@ -9,7 +8,6 @@ using ProElectionV2.Services.Interfaces;
 
 namespace ProElectionV2.Services;
 
-/// <inheritdoc/>
 public sealed class UserService : IUserService, IDisposable
 {
     private readonly IUserRepository _userRepository;
@@ -33,7 +31,7 @@ public sealed class UserService : IUserService, IDisposable
     /// <inheritdoc/>
     public async Task<User?> GetUserById(Guid id)
     {
-        User? user = await _userRepository.GetUserById(id);
+        User? user = await _userRepository.GetById(id);
 
         if (user == null)
         {
@@ -74,15 +72,20 @@ public sealed class UserService : IUserService, IDisposable
     {
         user.Email = user.Email.ToLower();
         user.PasswordSalt = Guid.NewGuid().ToString();
+        
+        // Validation done before getting hashed password as
+        // hashed password may throw validation error since its over 20 chars long.
+        await _userValidator.ValidateAndThrowAsync(user);
+        
         user.HashedPassword = GetHashedPassword(user.HashedPassword, user.PasswordSalt);
-
+        
         if (await _userRepository.CheckEmailExists(user.Email))
         {
             await _notifyService.ShowNotification("Email already exists");
             return null;
         }
         
-        User returnedUser = await _userRepository.CreateUser(user);
+        User returnedUser = await _userRepository.Create(user);
 
         await _notifyService.ShowNotification("Successfully Created User");
 
@@ -118,7 +121,7 @@ public sealed class UserService : IUserService, IDisposable
         }
         
         user.ParticipatingElections.Add(election.Id);
-        await _userRepository.UpdateUser(user);
+        await _userRepository.Update(user);
         
         await _notifyService.ShowNotification("Successfully added election to user");
     }

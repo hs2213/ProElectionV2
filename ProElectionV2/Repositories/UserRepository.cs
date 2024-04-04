@@ -6,8 +6,7 @@ using ProElectionV2.Repositories.Interfaces;
 
 namespace ProElectionV2.Repositories;
 
-/// <inheritdoc/>
-public class UserRepository : IUserRepository, IAsyncDisposable
+public class UserRepository : IUserRepository
 {
     private readonly ProElectionV2DbContext _dbContext;
 
@@ -17,7 +16,7 @@ public class UserRepository : IUserRepository, IAsyncDisposable
     }
     
     /// <inheritdoc/>
-    public async Task<User?> GetUserById(Guid id)
+    public async Task<User?> GetById(Guid id)
     {
         return await _dbContext.Users.SingleOrDefaultAsync(user => user.Id == id);
     }
@@ -30,7 +29,7 @@ public class UserRepository : IUserRepository, IAsyncDisposable
     }
     
     /// <inheritdoc/>
-    public async Task<User> CreateUser(User user)
+    public async Task<User> Create(User user)
     {
         await _dbContext.Users.AddAsync(user);
         await _dbContext.SaveChangesAsync();
@@ -50,7 +49,7 @@ public class UserRepository : IUserRepository, IAsyncDisposable
     }
     
     /// <inheritdoc/>
-    public async Task UpdateUser(User user)
+    public async Task Update(User user)
     {
         _dbContext.Users.Update(user);
         await _dbContext.SaveChangesAsync();
@@ -75,6 +74,7 @@ public class UserRepository : IUserRepository, IAsyncDisposable
             .ToListAsync();
     }
 
+    /// <inheritdoc/>
     public async ValueTask DisposeAsync()
     {
         await _dbContext.DisposeAsync();

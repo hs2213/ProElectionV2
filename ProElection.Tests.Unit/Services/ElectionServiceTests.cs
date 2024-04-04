@@ -36,7 +36,7 @@ public class ElectionServiceTests : DbFaker
         // Arrange
         var election = Fakers.FakeElection();
         
-        _substituteElectionRepository.CreateElection(election).Returns(election);
+        _substituteElectionRepository.Create(election).Returns(election);
         
         // Act
         Election result = await _sut.CreateElection(election);
@@ -53,7 +53,7 @@ public class ElectionServiceTests : DbFaker
         
         election.Name = string.Empty;
         
-        _substituteElectionRepository.CreateElection(election).Returns(election);
+        _substituteElectionRepository.Create(election).Returns(election);
         
         // Act
         Task CreateElection() => _sut.CreateElection(election);
@@ -68,7 +68,7 @@ public class ElectionServiceTests : DbFaker
         // Arrange
         var election = Fakers.FakeElection();
         
-        _substituteElectionRepository.GetElectionById(election.Id).Returns(election);
+        _substituteElectionRepository.GetById(election.Id).Returns(election);
         
         // Act
         Election? result = await _sut.GetElectionById(election.Id);
@@ -124,7 +124,7 @@ public class ElectionServiceTests : DbFaker
         ElectionCode electionCode = Fakers.FakeElectionCode();
         
         _substituteElectionCodeRepository.GetById(electionCode.Id).Returns(electionCode);
-        _substituteElectionRepository.GetElectionById(electionCode.ElectionId).Returns(Fakers.FakeElection());
+        _substituteElectionRepository.GetById(electionCode.ElectionId).Returns(Fakers.FakeElection());
         
         // Act
         ElectionCode? result = await _sut.GetElectionCodeById(electionCode.Id);
@@ -174,7 +174,7 @@ public class ElectionServiceTests : DbFaker
         ElectionCode electionCode = Fakers.FakeElectionCode();
         
         _substituteElectionCodeRepository.GetById(electionCode.Id).Returns(electionCode);
-        _substituteElectionRepository.GetElectionById(electionCode.ElectionId).Returns((Election?)null);
+        _substituteElectionRepository.GetById(electionCode.ElectionId).Returns((Election?)null);
         
         // Act
         ElectionCode? result = await _sut.GetElectionCodeById(electionCode.Id);
@@ -193,7 +193,7 @@ public class ElectionServiceTests : DbFaker
         election.End = DateTime.Now.AddDays(-1);
         
         _substituteElectionCodeRepository.GetById(electionCode.Id).Returns(electionCode);
-        _substituteElectionRepository.GetElectionById(electionCode.ElectionId).Returns(election);
+        _substituteElectionRepository.GetById(electionCode.ElectionId).Returns(election);
         
         // Act
         ElectionCode? result = await _sut.GetElectionCodeById(electionCode.Id);
@@ -324,7 +324,7 @@ public class ElectionServiceTests : DbFaker
         User candidate1 = Fakers.FakeUser(UserType.Candidate);
         User candidate2 = Fakers.FakeUser(UserType.Candidate);
         
-        _substituteElectionRepository.GetElectionById(election.Id).Returns(election);
+        _substituteElectionRepository.GetById(election.Id).Returns(election);
         _substituteUserRepository.GetCandidatesOfAnElection(election.Id).Returns([candidate1, candidate2]);
         
         _substituteVoteRepository.GetCandidateVotesByElectionId(candidate1.Id, election.Id).Returns(3);

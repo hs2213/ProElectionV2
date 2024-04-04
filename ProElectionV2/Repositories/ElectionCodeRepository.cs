@@ -6,7 +6,7 @@ using ProElectionV2.Repositories.Interfaces;
 namespace ProElectionV2.Repositories;
 
 /// <inheritdoc/>
-public class ElectionCodeRepository : IElectionCodeRepository, IAsyncDisposable
+public class ElectionCodeRepository : IElectionCodeRepository
 {
     private readonly ProElectionV2DbContext _dbContext;
 
