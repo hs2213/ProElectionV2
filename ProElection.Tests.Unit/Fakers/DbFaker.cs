@@ -1,8 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using ProElectionV2.Persistence;
+﻿using ProElectionV2.Persistence;
 
-namespace ProElection.Tests.Unit.Repositories;
+namespace ProElection.Tests.Unit.Fakers;
 
 public abstract class DbFaker
 {

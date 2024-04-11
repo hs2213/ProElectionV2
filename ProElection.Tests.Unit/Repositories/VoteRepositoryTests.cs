@@ -1,4 +1,6 @@
-﻿namespace ProElection.Tests.Unit.Repositories;
+﻿using ProElection.Tests.Unit.Fakers;
+
+namespace ProElection.Tests.Unit.Repositories;
 
 public class VoteRepositoryTests : DbFaker
 {
@@ -13,7 +15,7 @@ public class VoteRepositoryTests : DbFaker
     public async Task Create_Vote_ShouldAddVoteToDb()
     {
         // Arrange
-        Vote vote = Fakers.FakeVote();
+        Vote vote = Fakers.Fakers.FakeVote();
         
         // Act
         await _sut.Create(vote);
@@ -28,9 +30,9 @@ public class VoteRepositoryTests : DbFaker
     public async Task CheckIfUserVotedInElection_UserVoted_ShouldReturnTrue()
     {
         // Arrange.
-        User voter = Fakers.FakeUser(UserType.Voter);
+        User voter = Fakers.Fakers.FakeUser(UserType.Voter);
         
-        Vote vote = Fakers.FakeVote();
+        Vote vote = Fakers.Fakers.FakeVote();
         vote.UserId = voter.Id;
         await InMemoryDb.Votes.AddAsync(vote);
         await InMemoryDb.SaveChangesAsync();
@@ -46,7 +48,7 @@ public class VoteRepositoryTests : DbFaker
     public async Task CheckIfUserVotedInElection_UserNotVoted_ShouldReturnFalse()
     {
         // Arrange
-        Vote vote = Fakers.FakeVote();
+        Vote vote = Fakers.Fakers.FakeVote();
         
         // Act
         bool result = await _sut.CheckIfUserVotedInElection(vote.UserId, vote.ElectionId);
@@ -62,11 +64,11 @@ public class VoteRepositoryTests : DbFaker
         Guid electionId = Guid.NewGuid();
         Guid candidateId = Guid.NewGuid();
         
-        Vote vote1 = Fakers.FakeVote();
+        Vote vote1 = Fakers.Fakers.FakeVote();
         vote1.ElectionId = electionId;
         vote1.CandidateId = candidateId;
         
-        Vote vote2 = Fakers.FakeVote();
+        Vote vote2 = Fakers.Fakers.FakeVote();
         vote2.ElectionId = electionId;
         vote2.CandidateId = candidateId;
         

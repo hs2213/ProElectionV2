@@ -30,8 +30,4 @@
       <ProjectReference Include="..\ProElectionV2\ProElectionV2.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Fakers\" />
-    </ItemGroup>
-
 </Project>

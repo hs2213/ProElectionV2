@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using ProElection.Tests.Unit.Fakers;
 
 namespace ProElection.Tests.Unit.Services;
 
@@ -34,7 +35,7 @@ public class ElectionServiceTests : DbFaker
     public async Task CreateElection_WithValidElection_ShouldReturnElection()
     {
         // Arrange
-        var election = Fakers.FakeElection();
+        var election = Fakers.Fakers.FakeElection();
         
         _substituteElectionRepository.Create(election).Returns(election);
         
@@ -49,7 +50,7 @@ public class ElectionServiceTests : DbFaker
     public async Task CreateElection_WithInvalidElection_ShouldThrowValidationException()
     {
         // Arrange
-        var election = Fakers.FakeElection();
+        var election = Fakers.Fakers.FakeElection();
         
         election.Name = string.Empty;
         
@@ -66,7 +67,7 @@ public class ElectionServiceTests : DbFaker
     public async Task GetElectionById_WithValidElectionId_ShouldReturnElection()
     {
         // Arrange
-        var election = Fakers.FakeElection();
+        var election = Fakers.Fakers.FakeElection();
         
         _substituteElectionRepository.GetById(election.Id).Returns(election);
         
@@ -83,8 +84,8 @@ public class ElectionServiceTests : DbFaker
         // Arrange
         var elections = new List<Election>
         {
-            Fakers.FakeElection(),
-            Fakers.FakeElection(),
+            Fakers.Fakers.FakeElection(),
+            Fakers.Fakers.FakeElection(),
         };
         
         _substituteElectionRepository.GetElections().Returns(elections);
@@ -102,8 +103,8 @@ public class ElectionServiceTests : DbFaker
         // Arrange
         List<Election> elections =
         [
-            Fakers.FakeElection(),
-            Fakers.FakeElection()
+            Fakers.Fakers.FakeElection(),
+            Fakers.Fakers.FakeElection()
         ];
 
         List<Guid> electionIds = elections.Select(election => election.Id).ToList();
@@ -121,10 +122,10 @@ public class ElectionServiceTests : DbFaker
     public async Task GetElectionCodeById_WithValidElectionCodeId_ShouldReturnElectionCode()
     {
         // Arrange
-        ElectionCode electionCode = Fakers.FakeElectionCode();
+        ElectionCode electionCode = Fakers.Fakers.FakeElectionCode();
         
         _substituteElectionCodeRepository.GetById(electionCode.Id).Returns(electionCode);
-        _substituteElectionRepository.GetById(electionCode.ElectionId).Returns(Fakers.FakeElection());
+        _substituteElectionRepository.GetById(electionCode.ElectionId).Returns(Fakers.Fakers.FakeElection());
         
         // Act
         ElectionCode? result = await _sut.GetElectionCodeById(electionCode.Id);
@@ -154,7 +155,7 @@ public class ElectionServiceTests : DbFaker
     public async Task GetElectionCodeById_WithUsedElectionCode_ShouldReturnElectionCode()
     {
         // Arrange
-        ElectionCode electionCode = Fakers.FakeElectionCode();
+        ElectionCode electionCode = Fakers.Fakers.FakeElectionCode();
         electionCode.Status = CodeStatus.Used;
         
         _substituteElectionCodeRepository.GetById(electionCode.Id).Returns(electionCode);
@@ -171,7 +172,7 @@ public class ElectionServiceTests : DbFaker
     public async Task GetElectionCodeById_WithElectionCodeAssociatedToNonExistingElection_ShouldReturnNull()
     {
         // Arrange
-        ElectionCode electionCode = Fakers.FakeElectionCode();
+        ElectionCode electionCode = Fakers.Fakers.FakeElectionCode();
         
         _substituteElectionCodeRepository.GetById(electionCode.Id).Returns(electionCode);
         _substituteElectionRepository.GetById(electionCode.ElectionId).Returns((Election?)null);
@@ -188,8 +189,8 @@ public class ElectionServiceTests : DbFaker
     public async Task GetElectionCodeById_WithElectionCodeAssociatedToExpiredElection_ShouldReturnNull()
     {
         // Arrange
-        ElectionCode electionCode = Fakers.FakeElectionCode();
-        Election election = Fakers.FakeElection();
+        ElectionCode electionCode = Fakers.Fakers.FakeElectionCode();
+        Election election = Fakers.Fakers.FakeElection();
         election.End = DateTime.Now.AddDays(-1);
         
         _substituteElectionCodeRepository.GetById(electionCode.Id).Returns(electionCode);
@@ -207,7 +208,7 @@ public class ElectionServiceTests : DbFaker
     public async Task GetElectionCodeByUserAndElection_WithValidElectionAndUser_ShouldReturnElectionCode()
     {
         // Arrange
-        ElectionCode electionCode = Fakers.FakeElectionCode();
+        ElectionCode electionCode = Fakers.Fakers.FakeElectionCode();
         
         _substituteElectionCodeRepository.GetByElectionAndUser(electionCode.ElectionId, electionCode.UserId)
             .Returns(electionCode);
@@ -225,7 +226,7 @@ public class ElectionServiceTests : DbFaker
     public async Task GetElectionCodeByUserAndElection_WithNonExistingElectionAndUser_ShouldReturnNewElectionCode()
     {
         // Arrange
-        ElectionCode electionCode = Fakers.FakeElectionCode();
+        ElectionCode electionCode = Fakers.Fakers.FakeElectionCode();
         
         _substituteElectionCodeRepository
             .GetByElectionAndUser(electionCode.ElectionId, electionCode.UserId)
@@ -244,7 +245,7 @@ public class ElectionServiceTests : DbFaker
     public async Task Vote_WithValidVote_ShouldCreateVote()
     {
         // Arrange
-        Vote vote = Fakers.FakeVote();
+        Vote vote = Fakers.Fakers.FakeVote();
         
         // Act
         await _sut.Vote(vote);
@@ -257,7 +258,7 @@ public class ElectionServiceTests : DbFaker
     public async Task Vote_WithInvalidVote_ShouldThrowValidationException()
     {
         // Arrange
-        Vote vote = Fakers.FakeVote();
+        Vote vote = Fakers.Fakers.FakeVote();
         
         vote.UserId = Guid.Empty;
         
@@ -272,7 +273,7 @@ public class ElectionServiceTests : DbFaker
     public async Task MarkElectionCodeAsUsed_WithElectionCode_ShouldUpdateElectionCode()
     {
         // Arrange
-        ElectionCode electionCode = Fakers.FakeElectionCode();
+        ElectionCode electionCode = Fakers.Fakers.FakeElectionCode();
         electionCode.Status = CodeStatus.Used;
         
         // Act
@@ -287,8 +288,8 @@ public class ElectionServiceTests : DbFaker
     public async Task CheckIfUserHasVoted_WithUserAndElection_ShouldReturnTrue()
     {
         // Arrange
-        User user = Fakers.FakeUser(UserType.Voter);
-        Election election = Fakers.FakeElection();
+        User user = Fakers.Fakers.FakeUser(UserType.Voter);
+        Election election = Fakers.Fakers.FakeElection();
         
         _substituteVoteRepository.CheckIfUserVotedInElection(user.Id, election.Id).Returns(true);
         
@@ -303,8 +304,8 @@ public class ElectionServiceTests : DbFaker
     public async Task CheckIfUserHasVoted_WithUserAndElection_ShouldReturnFalse()
     {
         // Arrange
-        User user = Fakers.FakeUser(UserType.Voter);
-        Election election = Fakers.FakeElection();
+        User user = Fakers.Fakers.FakeUser(UserType.Voter);
+        Election election = Fakers.Fakers.FakeElection();
         
         _substituteVoteRepository.CheckIfUserVotedInElection(user.Id, election.Id).Returns(false);
         
@@ -319,10 +320,10 @@ public class ElectionServiceTests : DbFaker
     public async Task CalculateResults_WithElection_ShouldReturnCorrectResults()
     {
         // Arrange
-        Election election = Fakers.FakeElection();
+        Election election = Fakers.Fakers.FakeElection();
         
-        User candidate1 = Fakers.FakeUser(UserType.Candidate);
-        User candidate2 = Fakers.FakeUser(UserType.Candidate);
+        User candidate1 = Fakers.Fakers.FakeUser(UserType.Candidate);
+        User candidate2 = Fakers.Fakers.FakeUser(UserType.Candidate);
         
         _substituteElectionRepository.GetById(election.Id).Returns(election);
         _substituteUserRepository.GetCandidatesOfAnElection(election.Id).Returns([candidate1, candidate2]);

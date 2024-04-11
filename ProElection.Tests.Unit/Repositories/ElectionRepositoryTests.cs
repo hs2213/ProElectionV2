@@ -1,4 +1,6 @@
-﻿namespace ProElection.Tests.Unit.Repositories;
+﻿using ProElection.Tests.Unit.Fakers;
+
+namespace ProElection.Tests.Unit.Repositories;
 
 public class ElectionRepositoryTests : DbFaker
 {
@@ -15,9 +17,9 @@ public class ElectionRepositoryTests : DbFaker
         // Arrange
         IEnumerable<Election> fakeElections = new List<Election>
         {
-            Fakers.FakeElection(),
-            Fakers.FakeElection(),
-            Fakers.FakeElection()
+            Fakers.Fakers.FakeElection(),
+            Fakers.Fakers.FakeElection(),
+            Fakers.Fakers.FakeElection()
         };
         InMemoryDb.Elections.AddRange(fakeElections);
         await InMemoryDb.SaveChangesAsync();
@@ -34,7 +36,7 @@ public class ElectionRepositoryTests : DbFaker
     public async Task GetElectionById_ShouldReturnCorrectElection()
     {
         // Arrange
-        Election fakeElection = Fakers.FakeElection();
+        Election fakeElection = Fakers.Fakers.FakeElection();
         
         InMemoryDb.Elections.Add(fakeElection);
         await InMemoryDb.SaveChangesAsync();
@@ -51,7 +53,7 @@ public class ElectionRepositoryTests : DbFaker
     public async Task CreateElection_ShouldCreateElection()
     {
         // Arrange
-        Election fakeElection = Fakers.FakeElection();
+        Election fakeElection = Fakers.Fakers.FakeElection();
         
         // Act
         await _sut.Create(fakeElection);
@@ -68,7 +70,7 @@ public class ElectionRepositoryTests : DbFaker
     public async Task UpdateElection_ShouldUpdateElection()
     {
         // Arrange
-        Election fakeElection = Fakers.FakeElection();
+        Election fakeElection = Fakers.Fakers.FakeElection();
         
         InMemoryDb.Elections.Add(fakeElection);
         await InMemoryDb.SaveChangesAsync();

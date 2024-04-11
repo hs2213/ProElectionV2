@@ -1,4 +1,6 @@
-﻿namespace ProElection.Tests.Unit.Services;
+﻿using ProElection.Tests.Unit.Fakers;
+
+namespace ProElection.Tests.Unit.Services;
 
 public class UserServiceTests : DbFaker
 {
@@ -24,7 +26,7 @@ public class UserServiceTests : DbFaker
     public async Task GetUserById_WhenUserExists_ReturnsUser()
     {
         // Arrange
-        var user = Fakers.FakeUser(UserType.Voter);
+        var user = Fakers.Fakers.FakeUser(UserType.Voter);
         _substituteUserRepository.GetById(user.Id).Returns(user);
         
         // Act
@@ -54,7 +56,8 @@ public class UserServiceTests : DbFaker
     public async Task Authenticate_WhenUserExists_WithCorrectPassword_ReturnsUser()
     {
         // Arrange
-        User user = Fakers.FakeUser(UserType.Voter);
+        User user = Fakers.Fakers.FakeUser(UserType.Voter);
+        user.HashedPassword = "hSErM4xE6DXgBPggygYIL17NjjBVNd6zjE6Q5kbGri0=";
         _substituteUserRepository.GetUserByEmail(user.Email).Returns(user);
         
         // Act
@@ -69,7 +72,7 @@ public class UserServiceTests : DbFaker
     public async Task Authenticate_WhenUserExists_WithInCorrectPassword_ReturnsUser()
     {
         // Arrange
-        User user = Fakers.FakeUser(UserType.Voter);
+        User user = Fakers.Fakers.FakeUser(UserType.Voter);
         _substituteUserRepository.GetUserByEmail(user.Email).Returns(user);
         
         // Act
@@ -99,7 +102,7 @@ public class UserServiceTests : DbFaker
     public async Task CreateUser_WhenEmailExists_ReturnsNull()
     {
         // Arrange
-        User user = Fakers.FakeUser(UserType.Voter);
+        User user = Fakers.Fakers.FakeUser(UserType.Voter);
         _substituteUserRepository.CheckEmailExists(user.Email).Returns(true);
         
         // Act
@@ -114,7 +117,7 @@ public class UserServiceTests : DbFaker
     public async Task CreateUser_WhenEmailDoesNotExist_ReturnsUser()
     {
         // Arrange
-        User user = Fakers.FakeUser(UserType.Voter);
+        User user = Fakers.Fakers.FakeUser(UserType.Voter);
         _substituteUserRepository.CheckEmailExists(user.Email).Returns(false);
         _substituteUserRepository.Create(user).Returns(user);
         
@@ -132,12 +135,12 @@ public class UserServiceTests : DbFaker
         // Arrange
         List<Election> elections =
         [
-            Fakers.FakeElection(),
-            Fakers.FakeElection(),
-            Fakers.FakeElection()
+            Fakers.Fakers.FakeElection(),
+            Fakers.Fakers.FakeElection(),
+            Fakers.Fakers.FakeElection()
         ];
         
-        User user = Fakers.FakeUser(UserType.Voter);
+        User user = Fakers.Fakers.FakeUser(UserType.Voter);
         user.ParticipatingElections = [elections[0].Id, elections[1].Id, elections[2].Id];
         
         _substituteUserRepository.GetById(user.Id).Returns(user);
@@ -169,12 +172,12 @@ public class UserServiceTests : DbFaker
     public async Task GetCandidatesForElection_WhenElectionExists_ReturnsCandidates()
     {
         // Arrange
-        Election election = Fakers.FakeElection();
+        Election election = Fakers.Fakers.FakeElection();
         List<User> candidates =
         [
-            Fakers.FakeUser(UserType.Candidate),
-            Fakers.FakeUser(UserType.Candidate),
-            Fakers.FakeUser(UserType.Candidate)
+            Fakers.Fakers.FakeUser(UserType.Candidate),
+            Fakers.Fakers.FakeUser(UserType.Candidate),
+            Fakers.Fakers.FakeUser(UserType.Candidate)
         ];
         
         _substituteUserRepository.GetCandidatesOfAnElection(election.Id).Returns(candidates);
@@ -191,8 +194,8 @@ public class UserServiceTests : DbFaker
     public async Task AddElectionToUser_WhenUserIsNotPartOfElection_AddsElection()
     {
         // Arrange
-        User user = Fakers.FakeUser(UserType.Voter);
-        Election election = Fakers.FakeElection();
+        User user = Fakers.Fakers.FakeUser(UserType.Voter);
+        Election election = Fakers.Fakers.FakeElection();
         
         // Act
         await _sut.AddElectionToUser(user, election);
@@ -207,8 +210,8 @@ public class UserServiceTests : DbFaker
     public async Task AddElectionToUser_WhenUserIsPartOfElection_DoesNotAddElection()
     {
         // Arrange
-        User user = Fakers.FakeUser(UserType.Voter);
-        Election election = Fakers.FakeElection();
+        User user = Fakers.Fakers.FakeUser(UserType.Voter);
+        Election election = Fakers.Fakers.FakeElection();
         user.ParticipatingElections.Add(election.Id);
         
         // Act
@@ -230,9 +233,9 @@ public class UserServiceTests : DbFaker
         
         List<User> users =
         [
-            Fakers.FakeUser(UserType.Voter),
-            Fakers.FakeUser(UserType.Voter),
-            Fakers.FakeUser(UserType.Voter)
+            Fakers.Fakers.FakeUser(UserType.Voter),
+            Fakers.Fakers.FakeUser(UserType.Voter),
+            Fakers.Fakers.FakeUser(UserType.Voter)
         ];
 
         foreach (User user in users)

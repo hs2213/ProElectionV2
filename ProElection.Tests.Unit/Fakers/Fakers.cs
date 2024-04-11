@@ -1,4 +1,4 @@
-﻿namespace ProElection.Tests.Unit;
+﻿namespace ProElection.Tests.Unit.Fakers;
 
 public static class Fakers
 {

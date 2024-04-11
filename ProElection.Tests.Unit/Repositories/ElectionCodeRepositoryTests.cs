@@ -1,4 +1,6 @@
-﻿namespace ProElection.Tests.Unit.Repositories;
+﻿using ProElection.Tests.Unit.Fakers;
+
+namespace ProElection.Tests.Unit.Repositories;
 
 public class ElectionCodeRepositoryTests : DbFaker
 {
@@ -13,7 +15,7 @@ public class ElectionCodeRepositoryTests : DbFaker
     public async Task Create_ShouldAddElectionCodeToDatabase()
     {
         // Arrange
-        ElectionCode electionCode = Fakers.FakeElectionCode();
+        ElectionCode electionCode = Fakers.Fakers.FakeElectionCode();
         
         // Act
         await _sut.Create(electionCode);
@@ -28,7 +30,7 @@ public class ElectionCodeRepositoryTests : DbFaker
     public async Task GetById_ShouldReturnElectionCode()
     {
         // Arrange
-        ElectionCode electionCode = Fakers.FakeElectionCode();
+        ElectionCode electionCode = Fakers.Fakers.FakeElectionCode();
         await InMemoryDb.ElectionCodes.AddAsync(electionCode);
         await InMemoryDb.SaveChangesAsync();
         
@@ -44,7 +46,7 @@ public class ElectionCodeRepositoryTests : DbFaker
     public async Task GetByElectionAndUser_ShouldReturnCorrectElectionCode()
     {
         // Arrange
-        ElectionCode electionCode = Fakers.FakeElectionCode();
+        ElectionCode electionCode = Fakers.Fakers.FakeElectionCode();
         
         await InMemoryDb.ElectionCodes.AddAsync(electionCode);
         await InMemoryDb.SaveChangesAsync();
@@ -62,7 +64,7 @@ public class ElectionCodeRepositoryTests : DbFaker
     public async Task Update_ShouldUpdateElectionCode()
     {
         // Arrange
-        ElectionCode electionCode = Fakers.FakeElectionCode();
+        ElectionCode electionCode = Fakers.Fakers.FakeElectionCode();
         
         await InMemoryDb.ElectionCodes.AddAsync(electionCode);
         await InMemoryDb.SaveChangesAsync();
