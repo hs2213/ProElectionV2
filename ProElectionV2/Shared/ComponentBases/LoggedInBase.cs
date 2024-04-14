@@ -11,7 +11,7 @@ namespace ProElectionV2.Shared.ComponentBases;
 /// Base class for pages that require a user to be logged in.
 /// Stores user details.
 /// </summary>
-public class LoggedInBase : ComponentBase
+public abstract class LoggedInBase : ComponentBase
 {
     [Inject]
     protected ProtectedSessionStorage ProtectedSessionStorage { get; set; } = null!;
