@@ -28,6 +28,7 @@ public class VoteRepository : IVoteRepository
     {
         List<Vote> matches = await _dbContext.Votes
             .Where(vote => vote.UserId == userId && vote.ElectionId == electionId).ToListAsync();
+        
         return matches.Count > 0;
     }
     

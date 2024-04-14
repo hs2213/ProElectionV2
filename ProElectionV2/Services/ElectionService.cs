@@ -43,7 +43,9 @@ public sealed class ElectionService : IElectionService, IDisposable
     public async Task<Election> CreateElection(Election election)
     {
         await _electionValidator.ValidateAndThrowAsync(election);
+        
         Election electionCreated = await _electionRepository.Create(election);
+        
         await _notifyService.ShowNotification("Election Created");
         return electionCreated;
     }
@@ -104,13 +106,7 @@ public sealed class ElectionService : IElectionService, IDisposable
             return electionCode;
         }
         
-        electionCode = new ElectionCode
-        {
-            ElectionId = electionId,
-            UserId = userId,
-            Id = Guid.NewGuid(),
-            Status = CodeStatus.New
-        };
+        electionCode = GetEntity.ElectionCode(electionId, userId);
 
         await _electionCodeValidator.ValidateAndThrowAsync(electionCode);
         

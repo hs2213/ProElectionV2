@@ -26,7 +26,7 @@ public partial class AddUser : IDisposable
 
     private ValidationContext _userContext = new ValidationContext();
     
-    private User _user = GetEmptyEntity.User();
+    private User _user = GetEntity.User(UserType.Voter);
 
     protected override void OnParametersSet()
     {

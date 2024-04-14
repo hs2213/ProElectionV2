@@ -25,7 +25,7 @@ public partial class Admin : LoggedInBase, IDisposable
     
     private Election _selectedElection = default!;
     
-    private Election _electionToAdd = GetEmptyEntity.Election();
+    private Election _electionToAdd = GetEntity.Election();
     
     private List<Election> _elections = [];
     

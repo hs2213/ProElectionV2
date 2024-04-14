@@ -32,7 +32,7 @@ public partial class Index : IDisposable
 
     private readonly ValidationContext _userContext = new ValidationContext();
 
-    private readonly User _user = GetEmptyEntity.User();
+    private readonly User _user = GetEntity.User(UserType.Voter);
     
     private string _electionCode = string.Empty;
 

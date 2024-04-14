@@ -17,7 +17,7 @@ public partial class Vote : LoggedInBase, IDisposable
     [Inject]
     private IElectionService _electionService { get; set; } = default!;
     
-    private Election? _election = default!;
+    private Election? _election;
 
     private ElectionCode? _electionCode;
 
@@ -118,15 +118,8 @@ public partial class Vote : LoggedInBase, IDisposable
             _navigationManager.NavigateTo("/elections");
             return;
         }
-        
-        Entities.Vote vote = new Entities.Vote
-        {
-            CandidateId = candidate.Id,
-            ElectionId = _election!.Id,
-            UserId = UserId,
-            Id = Guid.NewGuid(),
-            Time = DateTimeOffset.Now
-        };
+
+        Entities.Vote vote = GetEntity.Vote(_election!.Id, UserId, candidate.Id);
         
         await _electionService.Vote(vote);
         
